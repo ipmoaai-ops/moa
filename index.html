@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>모아아이</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    :root {
+      --bg: #f4f8f8;
+      --surface: #ffffff;
+      --surface-soft: #f8fcfb;
+      --text: #0f172a;
+      --muted: #5b6b75;
+      --border: #d7e5e3;
+      --teal: #0f766e;
+      --teal-strong: #0b5f59;
+      --teal-soft: #d9f2ef;
+      --soft-blue: #eaf4ff;
+      --shadow: 0 18px 45px rgba(15, 118, 110, 0.08);
+    }
+
+    body {
+      margin: 0;
+      font-family: "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    .container {
+      width: min(1200px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(215, 229, 227, 0.9);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      min-height: 84px;
+      padding: 18px 0 14px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .brand-title {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #102236;
+    }
+
+    .brand-sub {
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .nav,
+    .header-context {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-left: auto;
+      align-self: flex-start;
+      margin-top: 2px;
+      flex-wrap: wrap;
+    }
+
+    .nav a,
+    .header-context-chip,
+    .basic-btn,
+    .nav-btn,
+    .action-btn,
+    .profile-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 108px;
+      height: 44px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--soft-blue);
+      color: #23404d;
+      font-weight: 700;
+      transition: 0.2s ease;
+      cursor: pointer;
+    }
+
+    .nav a:hover,
+    .header-context-chip:hover,
+    .basic-btn:hover,
+    .nav-btn:hover,
+    .nav-btn.active,
+    .action-btn:hover,
+    .profile-btn:hover {
+      background: var(--teal);
+      color: #ffffff;
+      border-color: var(--teal);
+      box-shadow: 0 10px 22px rgba(15, 118, 110, 0.18);
+    }
+
+    .page {
+      display: none;
+      padding: 48px 0 80px;
+      background: var(--bg);
+    }
+
+    .hero-wrap {
+      padding: 54px 0 30px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 40px;
+      align-items: center;
+      padding: 64px 40px;
+      background: linear-gradient(180deg, #f2fbfa 0%, #eef6f6 100%);
+      border: 1px solid var(--border);
+      border-radius: 36px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: var(--teal-soft);
+      color: var(--teal);
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(2.2rem, 4.2vw, 3.5rem);
+      line-height: 1.16;
+      letter-spacing: -0.05em;
+      font-weight: 850;
+      color: #0b1f30;
+    }
+
+    .hero p {
+      margin: 26px 0 0;
+      font-size: 1.18rem;
+      color: #445463;
+      max-width: 780px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      margin-top: 32px;
+    }
+
+    .panel,
+    .card,
+    .summary-panel,
+    .dashboard-header-card,
+    .complete-card {
+      background: rgba(255,255,255,0.96);
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      padding: 28px 26px;
+      box-shadow: var(--shadow);
+    }
+
+    .summary-grid,
+    .feature-grid,
+    .stats-grid,
+    .detail-grid,
+    .profile-layout,
+    .auth-layout,
+    .dual-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .feature-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .stats-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .detail-grid { grid-template-columns: 1fr 1fr; }
+    .profile-layout { grid-template-columns: 1fr 1fr; }
+    .auth-layout { grid-template-columns: 1fr 1.05fr; }
+    .dual-grid { grid-template-columns: 1fr 1fr; }
+
+    .mini-card,
+    .stat-card,
+    .data-card,
+    .detail-card,
+    .profile-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 22px 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .mini-card h3,
+    .data-card h3,
+    .detail-card h3,
+    .profile-card h3 {
+      margin: 0 0 12px;
+      font-size: 1.35rem;
+      letter-spacing: -0.03em;
+      color: #0f172a;
+    }
+
+    .mini-card p,
+    .data-card p,
+    .detail-card p,
+    .profile-card p,
+    .section-head p,
+    .muted {
+      color: var(--muted);
+    }
+
+    .section { padding: 40px 0 80px; }
+
+    .section-head {
+      text-align: center;
+      margin-bottom: 34px;
+    }
+
+    .section-head h2,
+    .dashboard-header-card h2,
+    .complete-card h2,
+    .panel h2 {
+      margin: 0;
+      font-size: clamp(2rem, 3.4vw, 2.8rem);
+      line-height: 1.2;
+      letter-spacing: -0.04em;
+      color: #0b1f30;
+    }
+
+    .feature-no {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: var(--teal-soft);
+      color: var(--teal);
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .tab-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 20px 0 18px;
+    }
+
+    .tab-btn {
+      height: 50px;
+      border-radius: 16px;
+      border: 1px solid #c8d8d6;
+      background: var(--soft-blue);
+      color: #23404d;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .tab-btn.active,
+    .tab-btn:hover {
+      background: var(--teal);
+      color: #ffffff;
+      border-color: var(--teal);
+      box-shadow: 0 10px 22px rgba(15, 118, 110, 0.18);
+    }
+
+    .form,
+    .compact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .compact-form-grid,
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 16px;
+      align-items: end;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form label,
+    .compact-form label,
+    .profile-card label {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    input, select {
+      width: 100%;
+      height: 52px;
+      padding: 0 16px;
+      border-radius: 16px;
+      border: 1px solid #cfd9d7;
+      background: #ffffff;
+      font-size: 1rem;
+      color: #0f172a;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.10);
+    }
+
+    .readonly { background: #f7fbfa !important; color: #5b6b75 !important; }
+
+    .meta-row,
+    .actions,
+    .dashboard-actions,
+    .profile-actions,
+    .complete-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .meta-row {
+      justify-content: space-between;
+      color: #6a7a86;
+      font-size: 0.98rem;
+      margin: 6px 0 8px;
+    }
+
+    .meta-row a { color: var(--teal); font-weight: 700; }
+
+    .note,
+    .dashboard-note,
+    .detail-summary,
+    .profile-note {
+      padding: 16px 18px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: var(--surface-soft);
+      color: #4f6070;
+      font-size: 0.96rem;
+      line-height: 1.7;
+    }
+
+    .dashboard-header-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .company-chip {
+      display: none;
+    }
+
+    .header-context-chip {
+      min-width: 172px;
+      height: 52px;
+      padding: 0 22px;
+      font-size: 1rem;
+      font-weight: 800;
+    }
+
+    .page-nav {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .nav-btn,
+    .action-btn,
+    .profile-btn,
+    .basic-btn {
+      min-width: 150px;
+      height: 50px;
+      border-radius: 16px;
+    }
+
+    .stat-card .label {
+      font-size: 0.95rem;
+      color: #5b6b75;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .stat-card .value {
+      font-size: 2rem;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      font-weight: 900;
+      color: #0b1f30;
+    }
+
+    .stat-card .sub {
+      margin-top: 8px;
+      color: #6a7a86;
+      font-size: 0.92rem;
+    }
+
+    .status-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .status-item {
+      display: grid;
+      grid-template-columns: 120px 1fr 56px;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .status-name { font-weight: 700; color: #23404d; font-size: 0.96rem; }
+
+    .status-bar {
+      width: 100%;
+      height: 12px;
+      border-radius: 999px;
+      background: #eaf1f0;
+      overflow: hidden;
+    }
+
+    .status-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: var(--teal);
+    }
+
+    .status-count { text-align: right; font-weight: 800; }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .table th,
+    .table td {
+      padding: 14px 12px;
+      border-bottom: 1px solid #dbe7e5;
+      text-align: left;
+      font-size: 0.96rem;
+      vertical-align: top;
+    }
+
+    .table th { color: #5b6b75; font-weight: 800; }
+    .table td { color: #0f172a; }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 70px;
+      min-height: 32px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: var(--soft-blue);
+      border: 1px solid var(--border);
+      color: #23404d;
+      font-size: 0.86rem;
+      font-weight: 800;
+    }
+
+    .linklike {
+      color: #0f172a;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .linklike:hover { color: var(--teal); }
+
+    .detail-wide { grid-column: 1 / -1; }
+
+    .detail-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .detail-item {
+      padding-bottom: 12px;
+      border-bottom: 1px solid #dbe7e5;
+    }
+
+    .detail-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .detail-item .k {
+      display: block;
+      font-size: 0.9rem;
+      color: #5b6b75;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .detail-item .v {
+      display: block;
+      font-size: 1rem;
+      color: #0f172a;
+      line-height: 1.7;
+    }
+
+    .insight-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .insight-box {
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: var(--surface-soft);
+    }
+
+    .insight-box h4 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+      color: #0f172a;
+      letter-spacing: -0.02em;
+    }
+
+    .insight-box p {
+      margin: 0;
+      color: #4f6070;
+      font-size: 0.96rem;
+      line-height: 1.7;
+    }
+
+    .keyword-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .keyword-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--soft-blue);
+      color: #23404d;
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
+    .dashboard-header-card {
+      margin-bottom: 24px;
+    }
+
+    .page-nav {
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .stats-grid,
+    .detail-grid,
+    .profile-layout,
+    .auth-layout,
+    .dual-grid,
+    .summary-grid,
+    .feature-grid {
+      gap: 22px;
+    }
+
+    @media (max-width: 1080px) {
+      .hero,
+      .summary-grid,
+      .feature-grid,
+      .stats-grid,
+      .detail-grid,
+      .profile-layout,
+      .auth-layout,
+      .dual-grid,
+      .compact-form-grid,
+      .profile-grid,
+      .insight-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .container { width: min(100% - 28px, 1200px); }
+      .header-inner { min-height: auto; padding: 16px 0; align-items: flex-start; flex-direction: column; }
+      .nav, .header-context { gap: 10px; }
+      .hero { padding: 34px 22px; border-radius: 26px; }
+      .hero h1 { font-size: 2rem; }
+      .panel, .card, .summary-panel, .dashboard-header-card, .complete-card, .mini-card, .stat-card, .data-card, .detail-card, .profile-card { padding: 22px 18px; border-radius: 24px; }
+      .tab-wrap { grid-template-columns: 1fr; }
+      .meta-row, .actions, .dashboard-actions, .profile-actions, .complete-actions, .dashboard-header-top { flex-direction: column; align-items: flex-start; }
+      .status-item { grid-template-columns: 1fr; }
+      .complete-row { flex-direction: column; align-items: flex-start; }
+      .complete-row strong { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <div class="brand">
+        <a href="#" class="brand-title" id="brand-home">모아아이</a>
+        <div class="brand-sub">보유 특허 관리 및 기술연계 플랫폼</div>
+      </div>
+      <nav class="nav" id="header-nav">
+        <a href="#login" id="header-login">로그인</a>
+        <a href="#join" id="header-join">회원가입</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page" id="page-001">
+      <div class="hero-wrap">
+        <div class="container">
+          <div class="hero">
+            <div>
+              <span class="eyebrow">AI 기반 대학 보유기술 관리 서비스</span>
+              <h1>보유 기술 특허 관리와<br />기업 수요 연계를 하나로</h1>
+              <p>모아아이는 TLO의 특허 관리, 기술 분류, 수요기업 검토, 기술이전 검토 업무를 효율화하고, 기업회원에게는 도입 가능한 대학 보유기술을 보다 쉽게 탐색할 수 있는 환경을 제공합니다.</p>
+              <div class="hero-actions">
+                <button type="button" class="basic-btn" id="home-go-login">로그인하기</button>
+                <button type="button" class="basic-btn" id="home-go-join">회원가입</button>
+              </div>
+            </div>
+            <div class="summary-panel">
+              <div class="summary-grid">
+                <article class="mini-card"><h3>보유특허 현황 관리</h3><p>출원번호, 발명명칭, 기술분야, 상태를 체계적으로 관리합니다.</p></article>
+                <article class="mini-card"><h3>AI 기술요약</h3><p>복잡한 특허 문헌을 빠르게 검토할 수 있도록 핵심 내용을 정리합니다.</p></article>
+                <article class="mini-card"><h3>TLO 업무 지원</h3><p>상담, 제안, 포트폴리오 구성, 수요기업 대응 자료 작성에 활용할 수 있습니다.</p></article>
+                <article class="mini-card"><h3>기업회원 탐색 기능</h3><p>기업은 관심 기술을 검색하고 협력 가능한 기술을 우선 검토할 수 있습니다.</p></article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2>모아아이의 주요 기능</h2>
+            <p>특허 관리, 기술 분류, 기업 탐색, 기술이전 검토를 위한 핵심 기능을 담았습니다.</p>
+          </div>
+          <div class="feature-grid">
+            <article class="mini-card"><div class="feature-no">01</div><h3>특허 포트폴리오 관리</h3><p>기관 보유특허를 상태, 기술분야, 적용산업, 발명자 기준으로 정리합니다.</p></article>
+            <article class="mini-card"><div class="feature-no">02</div><h3>기술 분류 및 요약</h3><p>특허별 기술 요약, 분류 체계, 연관기술 정보를 함께 표시합니다.</p></article>
+            <article class="mini-card"><div class="feature-no">03</div><h3>기업 수요 기반 탐색</h3><p>관심 분야 키워드 중심으로 보유기술을 검색하고 협력 후보 기술을 찾습니다.</p></article>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="page" id="page-002">
+      <div class="container">
+        <div class="auth-layout">
+          <div class="panel">
+            <h2>로그인 유형 안내</h2>
+            <p class="muted">사용자 유형에 따라 로그인 화면을 구분하여 제공합니다. 목적에 맞는 로그인 유형을 선택해 주세요.</p>
+            <div class="card"><h3>TLO 로그인</h3><p>대학 산학협력단, 기술지주회사, 기술이전 전담조직 등 내부 운영 사용자를 위한 로그인입니다.</p></div>
+            <div class="card"><h3>기업회원 로그인</h3><p>기술 도입, 공동연구, 협력 검토를 원하는 기업 사용자를 위한 로그인입니다.</p></div>
+            <div class="card"><h3>회원가입</h3><p>아직 계정이 없다면 로그인 유형에 맞는 회원가입 절차를 통해 서비스를 이용할 수 있습니다.</p></div>
+          </div>
+          <div class="panel">
+            <h2>로그인</h2>
+            <p class="muted">사용자 유형을 선택한 후 계정 정보를 입력해 주세요. 로그인 시에는 가입한 이메일 주소를 아이디로 사용합니다.</p>
+            <div class="tab-wrap">
+              <button type="button" class="tab-btn active" id="login-tab-tlo">TLO 로그인</button>
+              <button type="button" class="tab-btn" id="login-tab-company">기업회원 로그인</button>
+            </div>
+            <form class="form" id="login-form">
+              <label for="login-id" id="login-id-label">TLO 이메일 주소</label>
+              <input id="login-id" type="text" placeholder="이메일 주소를 입력하세요" />
+              <label for="login-password">비밀번호</label>
+              <input id="login-password" type="password" placeholder="비밀번호를 입력하세요" />
+              <div class="meta-row">
+                <span id="login-desc">기관 내부 사용자 전용</span>
+                <a href="#" id="open-password-find">비밀번호 찾기</a>
+              </div>
+              <button type="submit" class="basic-btn" style="width:100%;height:54px;border-radius:16px;">로그인</button>
+            </form>
+            <p class="muted" id="login-bottom-text">TLO 계정이 없으신가요? <a href="#" id="login-bottom-join" style="color:var(--teal);font-weight:700;">TLO 회원가입</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="page-003">
+      <div class="container">
+        <div class="section-head">
+          <h2>회원가입</h2>
+          <p>가입 대상을 확인한 후, 적합한 회원가입 유형을 선택해 주세요.</p>
+        </div>
+        <div class="dual-grid">
+          <article class="panel">
+            <h2>TLO 회원가입</h2>
+            <p class="muted">가입 대상</p>
+            <div class="note" style="font-weight:700;color:#0f172a;">각 대학 및 연구기관의 기술이전 담당조직 및 담당자</div>
+            <ul>
+              <li>대학 산학협력단, 기술지주회사, TLO 등 기관 내부 운영 조직을 위한 가입입니다.</li>
+              <li>기관 보유특허 관리, 기술 분류, 기술이전 검토, 수요기업 대응 업무 담당자를 대상으로 합니다.</li>
+            </ul>
+            <div class="actions"><button type="button" class="action-btn" id="go-004">TLO 회원가입 진행</button></div>
+          </article>
+          <article class="panel">
+            <h2>기업회원 가입</h2>
+            <p class="muted">가입 대상</p>
+            <div class="note" style="font-weight:700;color:#0f172a;">기술 관련 담당자 및 현재 재직자</div>
+            <ul>
+              <li>기술 도입, 공동연구, 사업화 검토, 협력 제안을 담당하는 기업 사용자를 위한 가입입니다.</li>
+              <li>기업 내 기술기획, 연구개발, 오픈이노베이션, 사업개발, 기술사업화 담당자와 현재 재직자를 대상으로 합니다.</li>
+            </ul>
+            <div class="actions"><button type="button" class="action-btn" id="go-006">기업회원 가입 진행</button></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="page-004">
+      <div class="container">
+        <div class="auth-layout">
+          <div class="panel">
+            <h2>TLO 회원가입</h2>
+            <p class="muted">기관 맞춤형 환경 구성을 위해 기본 정보를 먼저 확인하고 있습니다. 아래 정보를 입력해 주시면 해당 기관에 맞는 커스터마이징 제작을 위해 모아아이 담당자가 연락드립니다.</p>
+            <div class="card"><h3>안내 사항</h3><p>본 페이지는 대학 및 연구기관의 기술이전 담당조직과 담당자를 위한 TLO 회원가입 요청 페이지입니다. 가입 시 입력한 담당자 이메일 주소는 로그인 아이디로 사용됩니다.</p></div>
+            <div class="card"><h3>진행 방식</h3><p>입력해주신 기관 정보를 검토한 후, 기관 맞춤형 도입 및 구성 방향을 안내드릴 예정입니다.</p></div>
+          </div>
+          <div class="panel">
+            <h2>가입 요청</h2>
+            <form class="form" id="tlo-signup-form">
+              <label for="org-name">기관명</label>
+              <input id="org-name" type="text" placeholder="기관명을 입력해 주세요" />
+              <label for="manager-name">담당자명</label>
+              <input id="manager-name" type="text" placeholder="담당자명을 입력해 주세요" />
+              <label for="manager-phone">담당자 연락처</label>
+              <input id="manager-phone" type="text" placeholder="담당자 연락처를 입력해 주세요" />
+              <label for="manager-email">담당자 이메일 \(로그인 아이디\)</label>
+              <input id="manager-email" type="email" placeholder="담당자 이메일을 입력해 주세요" />
+              <div class="note">입력해주신 정보를 바탕으로 모아아이 담당자가 연락드려 기관에 맞는 커스터마이징 제작 방향을 안내드립니다.</div>
+              <button type="submit" class="basic-btn" style="width:100%;height:54px;border-radius:16px;">가입 요청</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="page-005">
+      <div class="container">
+        <div class="complete-card">
+          <h2>TLO 회원가입 요청이 접수되었습니다</h2>
+          <p class="muted">가입 요청을 보내주셔서 감사합니다. 입력해주신 정보를 확인하였으며, 모아아이 담당자가 빠른 시일 내에 연락드릴 예정입니다.</p>
+          <div class="complete-info-box">
+            <div class="complete-row"><span>기관명</span><strong id="confirm-org-name">-</strong></div>
+            <div class="complete-row"><span>담당자명</span><strong id="confirm-manager-name">-</strong></div>
+            <div class="complete-row"><span>담당자 연락처</span><strong id="confirm-manager-phone">-</strong></div>
+            <div class="complete-row"><span>담당자 이메일</span><strong id="confirm-manager-email">-</strong></div>
+          </div>
+          <div class="complete-actions" style="margin-top:18px;">
+            <button type="button" class="basic-btn" id="back-004">수정하기</button>
+            <button type="button" class="basic-btn" id="home-from-005">처음으로</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="page-006">
+      <div class="container">
+        <div class="auth-layout">
+          <div class="panel">
+            <h2>기업회원 가입</h2>
+            <p class="muted">기업회원 가입 요청을 위해 기본 정보를 입력받는 페이지입니다. 기술 검토 및 기업 특허 연계 확인을 위해 회사 정보와 담당자 정보를 함께 확인합니다.</p>
+            <div class="card"><h3>입력 대상 정보</h3><p>가입 기업명, 가입회원 성함, 가입회원 연락처, 가입회원 이메일 주소를 입력합니다. 가입회원 이메일 주소는 로그인 아이디로 사용됩니다.</p></div>
+            <div class="card"><h3>필수 확인 정보</h3><p>출원인코드, 가입기업 특허 출원번호, 가입기업 특허 등록번호 중 하나를 선택하여 입력해 주세요.</p></div>
+          </div>
+          <div class="panel">
+            <h2>기업회원 가입</h2>
+            <form class="form" id="company-signup-form">
+              <label for="company-name">가입 기업명</label>
+              <input id="company-name" type="text" placeholder="가입 기업명을 입력해 주세요" />
+              <label for="company-member-name">가입회원 성함</label>
+              <input id="company-member-name" type="text" placeholder="가입회원 성함을 입력해 주세요" />
+              <label for="company-member-phone">가입회원 연락처</label>
+              <input id="company-member-phone" type="text" placeholder="가입회원 연락처를 입력해 주세요" />
+              <label for="company-member-email">가입회원 이메일 주소 \(로그인 아이디\)</label>
+              <input id="company-member-email" type="email" placeholder="가입회원 이메일 주소를 입력해 주세요" />
+              <label for="company-patent-type">기업 특허 확인 정보</label>
+              <div class="compact-form-grid">
+                <div class="field">
+                  <select id="company-patent-type" required>
+                    <option value="" selected disabled>항목을 선택해 주세요</option>
+                    <option value="applicant-code">출원인코드</option>
+                    <option value="application-number">가입기업 특허 출원번호</option>
+                    <option value="registration-number">가입기업 특허 등록번호</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <input id="company-patent-ref" type="text" placeholder="선택한 항목의 값을 입력해 주세요" required />
+                </div>
+              </div>
+              <div class="note">기업 특허 식별을 위해 위 세 항목 중 하나를 선택한 뒤 해당 값을 입력해 주세요.</div>
+              <button type="submit" class="basic-btn" style="width:100%;height:54px;border-radius:16px;">가입 요청</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="page-007">
+      <div class="container">
+        <div class="complete-card">
+          <h2>기업회원 가입 요청이 접수되었습니다</h2>
+          <p class="muted">가입 요청을 보내주셔서 감사합니다. 입력해주신 정보를 확인하였으며, 모아아이 담당자가 빠른 시일 내에 연락드릴 예정입니다.</p>
+          <div class="complete-info-box">
+            <div class="complete-row"><span>가입 기업명</span><strong id="confirm-company-name">-</strong></div>
+            <div class="complete-row"><span>가입회원 성함</span><strong id="confirm-company-member-name">-</strong></div>
+            <div class="complete-row"><span>가입회원 연락처</span><strong id="confirm-company-member-phone">-</strong></div>
+            <div class="complete-row"><span>가입회원 이메일 주소</span><strong id="confirm-company-member-email">-</strong></div>
+            <div class="complete-row"><span id="confirm-company-patent-label">기업 특허 확인 정보</span><strong id="confirm-company-patent-value">-</strong></div>
+          </div>
+          <div class="complete-actions" style="margin-top:18px;">
+            <button type="button" class="basic-btn" id="back-006">수정하기</button>
+            <button type="button" class="basic-btn" id="home-from-007">처음으로</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="page-008">
+      <div class="container">
+        <div class="auth-layout">
+          <div class="panel">
+            <h2>비밀번호 찾기</h2>
+            <p class="muted">가입 시 등록한 정보를 기준으로 본인 확인을 진행합니다. 사용자 유형을 선택한 뒤 아이디 또는 이메일과 이름을 입력해 주세요.</p>
+            <div class="card"><h3>진행 순서</h3><p>본인 확인 정보 입력 → 인증번호 확인 → 새 비밀번호 설정 순서로 진행됩니다.</p></div>
+            <div class="card"><h3>안내</h3><p>등록된 연락 가능한 정보 기준으로 시범용 인증 흐름이 이어집니다.</p></div>
+          </div>
+          <div class="panel">
+            <h2>비밀번호 찾기</h2>
+            <div class="tab-wrap">
+              <button type="button" class="tab-btn active" id="pw-tab-tlo">TLO</button>
+              <button type="button" class="tab-btn" id="pw-tab-company">기업회원</button>
+            </div>
+            <form class="form" id="password-find-form">
+              <label for="pw-user-id" id="pw-user-id-label">TLO 아이디 또는 이메일</label>
+              <input id="pw-user-id" type="text" placeholder="아이디 또는 이메일을 입력해 주세요" />
+              <label for="pw-user-name" id="pw-user-name-label">담당자명</label>
+              <input id="pw-user-name" type="text" placeholder="이름을 입력해 주세요" />
+              <div class="note">입력한 정보 확인 후 인증번호 발송 화면으로 이동합니다.</div>
+              <button type="submit" class="basic-btn" style="width:100%;height:54px;border-radius:16px;">인증번호 받기</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="page-009">
+      <div class="container">
+        <div class="auth-layout">
+          <div class="panel">
+            <h2>인증번호 확인</h2>
+            <p class="muted">입력하신 정보 기준으로 인증 절차를 진행합니다. 아래 인증번호를 입력해 주세요.</p>
+            <div class="card"><h3>입력 정보</h3><p id="pw-confirm-summary">입력한 사용자 정보를 기준으로 인증을 진행합니다.</p></div>
+          </div>
+          <div class="panel">
+            <h2>인증번호 확인</h2>
+            <p class="muted" id="pw-code-sent-message">등록된 정보 기준으로 인증번호를 발송했습니다.</p>
+            <form class="form" id="password-code-form">
+              <label for="pw-code">인증번호</label>
+              <input id="pw-code" type="text" placeholder="인증번호를 입력해 주세요" />
+              <div class="actions">
+                <button type="button" class="basic-btn" id="pw-back-008">이전으로</button>
+                <button type="button" class="basic-btn" id="pw-resend">재발송</button>
+                <button type="submit" class="basic-btn">인증 확인</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="page-010">
+      <div class="container">
+        <div class="auth-layout">
+          <div class="panel">
+            <h2>새 비밀번호 설정</h2>
+            <p class="muted">새로운 비밀번호를 입력해 주세요. 시범용 화면에서는 입력값 확인 후 완료 화면으로 이동합니다.</p>
+            <div class="card"><h3>비밀번호 안내</h3><p>영문, 숫자, 특수문자를 포함한 8자 이상 형식으로 설정하는 흐름을 가정합니다.</p></div>
+          </div>
+          <div class="panel">
+            <h2>새 비밀번호 설정</h2>
+            <form class="form" id="password-reset-form">
+              <label for="pw-new-password">새 비밀번호</label>
+              <input id="pw-new-password" type="password" placeholder="새 비밀번호를 입력해 주세요" />
+              <label for="pw-new-password-check">새 비밀번호 확인</label>
+              <input id="pw-new-password-check" type="password" placeholder="새 비밀번호를 다시 입력해 주세요" />
+              <div class="actions">
+                <button type="submit" class="basic-btn">비밀번호 변경</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="page-011">
+      <div class="container">
+        <div class="complete-card">
+          <h2>비밀번호가 변경되었습니다</h2>
+          <p class="muted">새로운 비밀번호 설정이 완료되었습니다. 로그인 화면으로 이동하여 다시 로그인해 주세요.</p>
+          <div class="complete-info-box">
+            <div class="complete-row"><span>사용자 유형</span><strong id="pw-result-type">TLO</strong></div>
+            <div class="complete-row"><span>확인 계정</span><strong id="pw-result-id">-</strong></div>
+            <div class="complete-row"><span>이름</span><strong id="pw-result-name">-</strong></div>
+          </div>
+          <div class="complete-actions" style="margin-top:18px;">
+            <button type="button" class="basic-btn" id="go-002-from-011">로그인 화면으로 이동</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="page-101">
+      <div class="container">
+        <div class="dashboard-header-card">
+          <div class="dashboard-header-top">
+            <div>
+              <h2>대박전자 특허·기술 연계 대시보드</h2>
+              <p class="muted">전현무님, 대박전자의 보유특허 현황과 연관 기관 신규등록 특허, 특허관리(연차료) 현황을 한 화면에서 확인해 주세요.</p>
+            </div>
+          </div>
+          <div class="page-nav">
+            <button type="button" class="nav-btn active" id="go-101">종합 대시보드</button>
+            <button type="button" class="nav-btn" id="go-102">보유특허 현황</button>
+            <button type="button" class="nav-btn" id="go-103">연관 기관 신규등록 특허</button>
+            <button type="button" class="nav-btn" id="go-104">특허관리(연차료) 현황</button>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card"><div class="label">보유특허 전체</div><div class="value">128</div><div class="sub">출원/등록/소멸 포함</div></div>
+          <div class="stat-card"><div class="label">출원 중</div><div class="value">26</div><div class="sub">심사 진행 포함</div></div>
+          <div class="stat-card"><div class="label">등록 특허</div><div class="value">84</div><div class="sub">유지 중 권리 기준</div></div>
+          <div class="stat-card"><div class="label">연차료 관리 대상</div><div class="value">37</div><div class="sub">당기 관리 건수</div></div>
+          <div class="stat-card"><div class="label">연관 신규등록</div><div class="value">12</div><div class="sub">최근 3개월 기준</div></div>
+        </div>
+
+        <div class="dual-grid" style="margin-top:18px;">
+          <div class="data-card">
+            <h3>보유특허 현황 요약</h3>
+            <div class="status-list">
+              <div class="status-item"><div class="status-name">출원 중</div><div class="status-bar"><div class="status-fill" style="width:30%"></div></div><div class="status-count">26</div></div>
+              <div class="status-item"><div class="status-name">등록</div><div class="status-bar"><div class="status-fill" style="width:72%"></div></div><div class="status-count">84</div></div>
+              <div class="status-item"><div class="status-name">소멸/만료</div><div class="status-bar"><div class="status-fill" style="width:18%"></div></div><div class="status-count">18</div></div>
+            </div>
+            <div class="dashboard-note" style="margin-top:16px;">보유특허는 반도체 패키징, 회로기판, 접합소재, 신뢰성 평가 분야에 집중되어 있는 것으로 가정한 시범 화면입니다.</div>
+          </div>
+          <div class="data-card">
+            <h3>특허관리(연차료) 현황 요약</h3>
+            <div class="status-list">
+              <div class="status-item"><div class="status-name">정상</div><div class="status-bar"><div class="status-fill" style="width:64%"></div></div><div class="status-count">24</div></div>
+              <div class="status-item"><div class="status-name">예정</div><div class="status-bar"><div class="status-fill" style="width:32%"></div></div><div class="status-count">8</div></div>
+              <div class="status-item"><div class="status-name">임박</div><div class="status-bar"><div class="status-fill" style="width:18%"></div></div><div class="status-count">3</div></div>
+              <div class="status-item"><div class="status-name">조치 필요</div><div class="status-bar"><div class="status-fill" style="width:10%"></div></div><div class="status-count">2</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="data-card" style="margin-top:18px;">
+          <h3>연관 기관 신규등록 특허</h3>
+          <table class="table">
+            <thead><tr><th>기관명</th><th>특허명</th><th>등록일</th><th>연관도</th></tr></thead>
+            <tbody>
+              <tr><td>한양대학교 ERICA</td><td>고집적 회로기판용 방열 구조체</td><td>2026-04-02</td><td><span class="tag">높음</span></td></tr>
+              <tr><td>한국전자기술연구원</td><td>반도체 패키지 접합 신뢰성 향상 조성물</td><td>2026-03-26</td><td><span class="tag">중간</span></td></tr>
+              <tr><td>한국생산기술연구원</td><td>회로기판 적층 공정 모니터링 시스템</td><td>2026-03-18</td><td><span class="tag">높음</span></td></tr>
+            </tbody>
+          </table>
+          <div class="dashboard-actions" style="margin-top:18px;"><button type="button" class="action-btn" id="go-103-from-101">상세 보기</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="page-102">
+      <div class="container">
+        <div class="dashboard-header-card">
+          <div class="dashboard-header-top">
+            <div><h2>대박전자 보유특허 현황</h2><p class="muted">보유특허의 출원번호, 등록번호, 상태, 기술분야를 시범용으로 정리한 상세 화면입니다.</p></div>
+          </div>
+          <div class="page-nav">
+            <button type="button" class="nav-btn" id="go-101-from-102">종합 대시보드</button>
+            <button type="button" class="nav-btn active">보유특허 현황</button>
+            <button type="button" class="nav-btn" id="go-103-from-102">연관 기관 신규등록 특허</button>
+            <button type="button" class="nav-btn" id="go-104-from-102">특허관리(연차료) 현황</button>
+          </div>
+        </div>
+        <div class="data-card">
+          <h3>보유특허 상세 목록</h3>
+          <table class="table">
+            <thead><tr><th>출원번호</th><th>등록번호</th><th>발명명칭</th><th>상태</th><th>기술분야</th></tr></thead>
+            <tbody>
+              <tr><td><a href="#" class="linklike patent-detail-link">10-2024-0012345</a></td><td>10-2754321</td><td><a href="#" class="linklike patent-detail-link">고방열 회로기판 구조</a></td><td><span class="tag">등록</span></td><td>회로기판</td></tr>
+              <tr><td><a href="#" class="linklike patent-detail-link">10-2025-0045678</a></td><td>-</td><td><a href="#" class="linklike patent-detail-link">패키지 접합층 균열 억제 조성물</a></td><td><span class="tag">출원</span></td><td>접합소재</td></tr>
+              <tr><td><a href="#" class="linklike patent-detail-link">10-2023-0098765</a></td><td>10-2687654</td><td><a href="#" class="linklike patent-detail-link">적층기판 신뢰성 평가 장치</a></td><td><span class="tag">등록</span></td><td>신뢰성 평가</td></tr>
+              <tr><td><a href="#" class="linklike patent-detail-link">10-2022-0065432</a></td><td>10-2599988</td><td><a href="#" class="linklike patent-detail-link">미세회로용 열확산 패턴 구조</a></td><td><span class="tag">등록</span></td><td>방열소재</td></tr>
+              <tr><td><a href="#" class="linklike patent-detail-link">10-2021-0032109</a></td><td>10-2488881</td><td><a href="#" class="linklike patent-detail-link">패키지 기판용 비아 형성 방법</a></td><td><span class="tag">정상</span></td><td>패키징</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="page-103">
+      <div class="container">
+        <div class="dashboard-header-card">
+          <div class="dashboard-header-top">
+            <div><h2>연관 기관 신규등록 특허</h2><p class="muted">대박전자와 기술적으로 연관성이 높은 기관 특허를 최신순으로 보여주는 시범 화면입니다.</p></div>
+          </div>
+          <div class="page-nav">
+            <button type="button" class="nav-btn" id="go-101-from-103">종합 대시보드</button>
+            <button type="button" class="nav-btn" id="go-102-from-103">보유특허 현황</button>
+            <button type="button" class="nav-btn active">연관 기관 신규등록 특허</button>
+            <button type="button" class="nav-btn" id="go-104-from-103">특허관리(연차료) 현황</button>
+          </div>
+        </div>
+        <div class="data-card">
+          <h3>최근 등록 특허 목록</h3>
+          <table class="table">
+            <thead><tr><th>기관명</th><th>특허명</th><th>등록번호</th><th>등록일</th><th>연관 키워드</th></tr></thead>
+            <tbody>
+              <tr><td>한양대학교 ERICA</td><td><a href="#" class="linklike related-detail-link">고밀도 패키지 기판용 열전달 구조</a></td><td><a href="#" class="linklike related-detail-link">10-2811111</a></td><td>2026-04-02</td><td>방열, 패키지기판</td></tr>
+              <tr><td>한국전자기술연구원</td><td><a href="#" class="linklike related-detail-link">저응력 접합재 조성물</a></td><td><a href="#" class="linklike related-detail-link">10-2804567</a></td><td>2026-03-26</td><td>접합, 균열억제</td></tr>
+              <tr><td>한국생산기술연구원</td><td><a href="#" class="linklike related-detail-link">기판 적층 정렬 오차 보정 시스템</a></td><td><a href="#" class="linklike related-detail-link">10-2798877</a></td><td>2026-03-18</td><td>적층, 공정정렬</td></tr>
+              <tr><td>서울대학교 산학협력단</td><td><a href="#" class="linklike related-detail-link">신뢰성 향상용 회로기판 검사 방법</a></td><td><a href="#" class="linklike related-detail-link">10-2791122</a></td><td>2026-03-09</td><td>검사, 신뢰성</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="page-104">
+      <div class="container">
+        <div class="dashboard-header-card">
+          <div class="dashboard-header-top">
+            <div><h2>특허관리(연차료) 현황</h2><p class="muted">연차료 납부 예정, 임박, 조치 필요 상태를 중심으로 정리한 시범 화면입니다.</p></div>
+          </div>
+          <div class="page-nav">
+            <button type="button" class="nav-btn" id="go-101-from-104">종합 대시보드</button>
+            <button type="button" class="nav-btn" id="go-102-from-104">보유특허 현황</button>
+            <button type="button" class="nav-btn" id="go-103-from-104">연관 기관 신규등록 특허</button>
+            <button type="button" class="nav-btn active">특허관리(연차료) 현황</button>
+          </div>
+        </div>
+        <div class="data-card">
+          <h3>연차료 관리 목록</h3>
+          <table class="table">
+            <thead><tr><th>특허명</th><th>권리상태</th><th>다음 납부일</th><th>남은 기간</th><th>상태</th></tr></thead>
+            <tbody>
+              <tr><td>고방열 회로기판 구조</td><td>등록</td><td>2026-05-12</td><td>27일</td><td><span class="tag">예정</span></td></tr>
+              <tr><td>적층기판 신뢰성 평가 장치</td><td>등록</td><td>2026-04-22</td><td>7일</td><td><span class="tag">임박</span></td></tr>
+              <tr><td>패키지 기판용 비아 형성 방법</td><td>등록</td><td>2026-04-17</td><td>2일</td><td><span class="tag">조치 필요</span></td></tr>
+              <tr><td>미세회로용 열확산 패턴 구조</td><td>등록</td><td>2026-06-03</td><td>49일</td><td><span class="tag">정상</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="page-105">
+      <div class="container">
+        <div class="dashboard-header-card">
+          <div class="dashboard-header-top">
+            <div><h2>보유특허 상세 화면</h2><p class="muted">102페이지의 보유특허 목록에서 선택한 특허를 상세하게 확인하는 시범용 화면입니다.</p></div>
+          </div>
+          <div class="page-nav">
+            <button type="button" class="nav-btn" id="go-101-from-105">종합 대시보드</button>
+            <button type="button" class="nav-btn" id="go-102-from-105">보유특허 현황</button>
+            <button type="button" class="nav-btn" id="go-103-from-105">연관 기관 신규등록 특허</button>
+            <button type="button" class="nav-btn" id="go-104-from-105">특허관리(연차료) 현황</button>
+          </div>
+        </div>
+        <div class="detail-grid">
+          <div class="detail-card">
+            <h3>기본 정보</h3>
+            <div class="detail-list">
+              <div class="detail-item"><span class="k">발명명칭</span><span class="v">고방열 회로기판 구조</span></div>
+              <div class="detail-item"><span class="k">출원번호</span><span class="v">10-2024-0012345</span></div>
+              <div class="detail-item"><span class="k">등록번호</span><span class="v">10-2754321</span></div>
+              <div class="detail-item"><span class="k">현재 상태</span><span class="v">등록</span></div>
+              <div class="detail-item"><span class="k">기술분야</span><span class="v">회로기판 / 방열구조 / 패키징</span></div>
+            </div>
+          </div>
+          <div class="detail-card">
+            <h3>권리 및 관리 정보</h3>
+            <div class="detail-list">
+              <div class="detail-item"><span class="k">출원일</span><span class="v">2024-01-17</span></div>
+              <div class="detail-item"><span class="k">등록일</span><span class="v">2025-11-08</span></div>
+              <div class="detail-item"><span class="k">다음 연차료 납부일</span><span class="v">2026-05-12</span></div>
+              <div class="detail-item"><span class="k">관리 상태</span><span class="v">예정</span></div>
+              <div class="detail-item"><span class="k">연관 기관 특허 검토</span><span class="v">한양대학교 ERICA, 한국전자기술연구원</span></div>
+            </div>
+          </div>
+          <div class="detail-card detail-wide"><h3>특허 요약</h3><div class="detail-summary">본 시범 특허는 회로기판의 열 방출 효율을 높이기 위한 구조에 관한 것으로, 고집적 전자부품이 배치되는 영역에서 열이 집중되는 문제를 완화하기 위해 열전달 경로를 개선한 구조를 포함하는 것으로 가정하였습니다.</div></div>
+          <div class="detail-card detail-wide"><h3>활용 포인트</h3><div class="detail-list"><div class="detail-item"><span class="k">적용 가능 제품군</span><span class="v">고집적 회로기판, 반도체 패키지 기판, 고방열 모듈</span></div><div class="detail-item"><span class="k">검토 포인트</span><span class="v">기존 방열 패턴 구조와의 중복 여부, 열저항 저감 효과, 적층 공정 호환성</span></div><div class="detail-item"><span class="k">사업화 관점</span><span class="v">기판 성능 향상, 고사양 전자제품 대응, 기관 공동기술 검토 가능성</span></div></div></div>
+        </div>
+        <div class="dashboard-actions" style="margin-top:18px;"><button type="button" class="action-btn" id="back-102-from-105">목록으로 돌아가기</button></div>
+      </div>
+    </section>
+
+    <section class="page" id="page-106">
+      <div class="container">
+        <div class="dashboard-header-card">
+          <div class="dashboard-header-top">
+            <div><h2>연관 기관 특허 상세 화면</h2><p class="muted">103페이지에서 선택한 연관 기관 신규등록 특허를 보다 쉽게 이해할 수 있도록 설명형 구성으로 정리한 시범용 화면입니다.</p></div>
+          </div>
+          <div class="page-nav">
+            <button type="button" class="nav-btn" id="go-101-from-106">종합 대시보드</button>
+            <button type="button" class="nav-btn" id="go-102-from-106">보유특허 현황</button>
+            <button type="button" class="nav-btn" id="go-103-from-106">연관 기관 신규등록 특허</button>
+            <button type="button" class="nav-btn" id="go-104-from-106">특허관리(연차료) 현황</button>
+          </div>
+        </div>
+        <div class="detail-grid">
+          <div class="detail-card"><h3>특허 기본 정보</h3><div class="detail-list"><div class="detail-item"><span class="k">기관명</span><span class="v">한양대학교 ERICA</span></div><div class="detail-item"><span class="k">특허명</span><span class="v">고밀도 패키지 기판용 열전달 구조</span></div><div class="detail-item"><span class="k">등록번호</span><span class="v">10-2811111</span></div><div class="detail-item"><span class="k">등록일</span><span class="v">2026-04-02</span></div><div class="detail-item"><span class="k">연관 키워드</span><span class="v">방열, 패키지기판, 열전달, 고집적 회로</span></div></div></div>
+          <div class="detail-card"><h3>대박전자와의 연관성</h3><div class="detail-list"><div class="detail-item"><span class="k">연관도</span><span class="v">높음</span></div><div class="detail-item"><span class="k">연관 근거</span><span class="v">회로기판 방열 구조와 패키지 신뢰성 향상이라는 측면에서 대박전자의 보유특허 포트폴리오와 직접 연결 가능한 기술로 가정하였습니다.</span></div><div class="detail-item"><span class="k">검토 우선순위</span><span class="v">공동검토 후보 / 기술도입 후보</span></div></div></div>
+          <div class="detail-card detail-wide"><h3>특허 내용을 쉽게 이해하기</h3><div class="detail-summary">이 특허는 고밀도 패키지 기판에서 발생하는 열을 보다 효과적으로 분산시키기 위한 구조에 관한 것으로 가정한 시범 예시입니다. 핵심은 열이 집중되는 영역에서 열전달 경로를 효율적으로 확보하고, 기판 구조 내부의 열 흐름을 개선하여 고성능 전자부품의 안정성을 높이는 데 있습니다.</div><div class="insight-grid"><div class="insight-box"><h4>핵심 기술 포인트</h4><p>열이 집중되는 구간을 빠르게 분산시키는 패턴형 구조, 기판 내부 열저항 저감, 고집적 부품 적용성 확보</p></div><div class="insight-box"><h4>예상 활용 분야</h4><p>고성능 반도체 패키지, 고방열 회로기판, 전력반도체 모듈, 고사양 전자기기용 기판 설계</p></div><div class="insight-box"><h4>대박전자 검토 포인트</h4><p>기존 방열 패턴 특허와 충돌 여부, 기판 제조공정 반영 가능성, 공동개발 또는 라이선스 적합성</p></div></div></div>
+          <div class="detail-card detail-wide"><h3>핵심 키워드</h3><div class="keyword-badges"><span class="keyword-badge">고밀도 패키지</span><span class="keyword-badge">열전달 구조</span><span class="keyword-badge">방열 설계</span><span class="keyword-badge">회로기판</span><span class="keyword-badge">신뢰성 향상</span><span class="keyword-badge">고집적 전자부품</span></div></div>
+        </div>
+        <div class="dashboard-actions" style="margin-top:18px;"><button type="button" class="action-btn" id="back-103-from-106">목록으로 돌아가기</button></div>
+      </div>
+    </section>
+
+    <section class="page" id="page-107">
+      <div class="container">
+        <div class="dashboard-header-card">
+          <div class="dashboard-header-top">
+            <div>
+              <h2>내 정보 관리</h2>
+              <p class="muted">대박전자 전현무님의 기본 회원정보와 계정 정보를 확인하고 수정할 수 있습니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-layout">
+          <div class="profile-card">
+            <h3>기본 회원정보</h3>
+            <p>회원 기본정보를 확인하고 수정할 수 있습니다.</p>
+            <div class="profile-grid">
+              <div class="field">
+                <label for="profile-company">기업명</label>
+                <input id="profile-company" class="readonly" type="text" value="대박전자" readonly />
+              </div>
+              <div class="field">
+                <label for="profile-name">회원명</label>
+                <input id="profile-name" type="text" value="전현무" />
+              </div>
+              <div class="field">
+                <label for="profile-dept">부서</label>
+                <input id="profile-dept" type="text" value="기술기획팀" />
+              </div>
+              <div class="field">
+                <label for="profile-position">직책</label>
+                <input id="profile-position" type="text" value="책임매니저" />
+              </div>
+              <div class="field">
+                <label for="profile-phone">연락처</label>
+                <input id="profile-phone" type="text" value="010-1234-5678" />
+              </div>
+              <div class="field">
+                <label for="profile-email">이메일 주소 (로그인 아이디)</label>
+                <input id="profile-email" type="email" value="jhm@daebak.co.kr" />
+              </div>
+            </div>
+          </div>
+
+          <div class="profile-card">
+            <h3>비밀번호 변경</h3>
+            <p>현재 비밀번호를 확인한 뒤 새로운 비밀번호로 변경할 수 있습니다.</p>
+            <div class="form">
+              <label for="profile-current-password">현재 비밀번호</label>
+              <input id="profile-current-password" type="password" placeholder="현재 비밀번호를 입력해 주세요" />
+
+              <label for="profile-new-password">새 비밀번호</label>
+              <input id="profile-new-password" type="password" placeholder="새 비밀번호를 입력해 주세요" />
+
+              <label for="profile-new-password-check">새 비밀번호 확인</label>
+              <input id="profile-new-password-check" type="password" placeholder="새 비밀번호를 다시 입력해 주세요" />
+            </div>
+          </div>
+
+          <div class="profile-card detail-wide">
+            <h3>기업 특허 확인 정보</h3>
+            <p>회원가입 시 등록한 기업 식별 정보를 확인하고 필요 시 수정할 수 있습니다.</p>
+            <div class="compact-form-grid">
+              <div class="field">
+                <label for="profile-patent-type">확인 항목</label>
+                <select id="profile-patent-type">
+                  <option value="applicant-code">출원인코드</option>
+                  <option value="application-number">가입기업 특허 출원번호</option>
+                  <option value="registration-number">가입기업 특허 등록번호</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="profile-patent-value">입력값</label>
+                <input id="profile-patent-value" type="text" value="4-2026-DBELECTRONICS" />
+              </div>
+            </div>
+
+            <div class="profile-note" style="margin-top:14px;">수정된 정보는 저장 후 즉시 반영되며, 일부 기업 식별 정보는 운영 검토 후 반영될 수 있습니다.</div>
+
+            <div class="profile-actions" style="margin-top:18px;">
+              <button type="button" class="profile-btn" id="go-109">회원 탈퇴</button>
+              <button type="button" class="profile-btn" id="logout-107">로그아웃</button>
+              <button type="button" class="profile-btn" id="cancel-107">취소</button>
+              <button type="button" class="profile-btn" id="save-107">저장하기</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="page-108">
+      <div class="container">
+        <div class="complete-card">
+          <h2>내 정보가 수정되었습니다</h2>
+          <p class="muted">기본 회원정보와 계정 정보가 저장되었습니다. 수정된 정보는 기업회원 화면에 반영됩니다.</p>
+          <div class="complete-info-box">
+            <div class="complete-row"><span>기업명</span><strong id="profile-result-company">대박전자</strong></div>
+            <div class="complete-row"><span>회원명</span><strong id="profile-result-name">전현무</strong></div>
+            <div class="complete-row"><span>부서 / 직책</span><strong id="profile-result-role">기술기획팀 / 책임매니저</strong></div>
+            <div class="complete-row"><span>연락처</span><strong id="profile-result-phone">010-1234-5678</strong></div>
+            <div class="complete-row"><span>이메일</span><strong id="profile-result-email">jhm@daebak.co.kr</strong></div>
+          </div>
+          <div class="complete-actions" style="margin-top:18px;">
+            <button type="button" class="basic-btn" id="back-107-from-108">다시 수정하기</button>
+            <button type="button" class="basic-btn" id="go-101-from-108">대시보드로 이동</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="page-109">
+      <div class="container">
+        <div class="complete-card">
+          <h2>회원 탈퇴</h2>
+          <p class="muted">회원 탈퇴를 진행하면 기업회원 계정 정보와 개인 설정 정보가 더 이상 사용되지 않습니다. 시범 화면에서는 탈퇴 요청 확인 흐름만 제공합니다.</p>
+          <div class="complete-info-box">
+            <div class="complete-row"><span>기업명</span><strong>대박전자</strong></div>
+            <div class="complete-row"><span>회원명</span><strong>전현무</strong></div>
+            <div class="complete-row"><span>아이디</span><strong>daebak_jhm</strong></div>
+            <div class="complete-row"><span>안내</span><strong>실운영 시에는 관리자 확인 후 최종 반영됩니다.</strong></div>
+          </div>
+          <div class="profile-note" style="margin-top:18px;">정말 탈퇴하시려면 아래 버튼을 눌러 주세요. 시범 화면에서는 001페이지로 이동합니다.</div>
+          <div class="complete-actions" style="margin-top:18px;">
+            <button type="button" class="basic-btn" id="back-107-from-109">돌아가기</button>
+            <button type="button" class="basic-btn" id="withdraw-109">회원 탈퇴 진행</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const pages = {};
+    document.querySelectorAll('.page').forEach(page => { pages[page.id] = page; });
+
+    const dashboardPages = ['page-101','page-102','page-103','page-104','page-105','page-106','page-107','page-108','page-109'];
+
+    let currentLoginType = 'tlo';
+    let currentPwType = 'tlo';
+    let pwIdValue = '-';
+    let pwNameValue = '-';
+
+    function hideAllPages() {
+      Object.values(pages).forEach(page => { page.style.display = 'none'; });
+    }
+
+    function updateHeader(pageId) {
+      const headerNav = document.getElementById('header-nav');
+      if (dashboardPages.includes(pageId)) {
+        headerNav.className = 'header-context';
+        headerNav.innerHTML = '<button type="button" class="header-context-chip" id="header-profile-link">대박전자 전현무님</button>';
+      } else {
+        headerNav.className = 'nav';
+        headerNav.innerHTML = '<a href="#" id="header-login">로그인</a><a href="#" id="header-join">회원가입</a>';
+      }
+    }
+
+    function showPage(pageId) {
+      hideAllPages();
+      if (pages[pageId]) pages[pageId].style.display = 'block';
+      updateHeader(pageId);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function setLoginType(type) {
+      currentLoginType = type;
+      const tlo = document.getElementById('login-tab-tlo');
+      const company = document.getElementById('login-tab-company');
+      const label = document.getElementById('login-id-label');
+      const desc = document.getElementById('login-desc');
+      const bottom = document.getElementById('login-bottom-text');
+      tlo.classList.toggle('active', type === 'tlo');
+      company.classList.toggle('active', type === 'company');
+      if (type === 'company') {
+        label.textContent = '기업회원 이메일 주소';
+        desc.textContent = '기업회원 전용 로그인';
+        bottom.innerHTML = '기업회원 계정이 없으신가요? <a href="#" id="login-bottom-join">기업회원 가입</a>';
+      } else {
+        label.textContent = 'TLO 이메일 주소';
+        desc.textContent = '기관 내부 사용자 전용';
+        bottom.innerHTML = 'TLO 계정이 없으신가요? <a href="#" id="login-bottom-join">TLO 회원가입</a>';
+      }
+    }
+
+    function setPwType(type) {
+      currentPwType = type;
+      const tlo = document.getElementById('pw-tab-tlo');
+      const company = document.getElementById('pw-tab-company');
+      const idLabel = document.getElementById('pw-user-id-label');
+      const nameLabel = document.getElementById('pw-user-name-label');
+      tlo.classList.toggle('active', type === 'tlo');
+      company.classList.toggle('active', type === 'company');
+      idLabel.textContent = type === 'company' ? '기업회원 아이디 또는 이메일' : 'TLO 아이디 또는 이메일';
+      nameLabel.textContent = type === 'company' ? '회원명' : '담당자명';
+    }
+
+    document.addEventListener('click', function(event) {
+      const target = event.target;
+      if (target.id === 'brand-home') { event.preventDefault(); showPage('page-001'); }
+      if (target.id === 'header-login' || target.id === 'home-go-login') { event.preventDefault(); showPage('page-002'); }
+      if (target.id === 'header-join' || target.id === 'home-go-join' || target.id === 'login-bottom-join') { event.preventDefault(); showPage('page-003'); }
+      if (target.id === 'header-profile-link') { event.preventDefault(); showPage('page-107'); }
+    });
+
+    document.getElementById('login-tab-tlo').addEventListener('click', () => setLoginType('tlo'));
+    document.getElementById('login-tab-company').addEventListener('click', () => setLoginType('company'));
+    document.getElementById('pw-tab-tlo').addEventListener('click', () => setPwType('tlo'));
+    document.getElementById('pw-tab-company').addEventListener('click', () => setPwType('company'));
+
+    document.getElementById('login-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      if (currentLoginType === 'tlo') {
+        window.location.href = 'https://www.moaai.co.kr/';
+      } else {
+        showPage('page-101');
+      }
+    });
+
+    document.getElementById('open-password-find').addEventListener('click', function(event) {
+      event.preventDefault();
+      setPwType(currentLoginType);
+      showPage('page-008');
+    });
+
+    document.getElementById('go-004').addEventListener('click', () => showPage('page-004'));
+    document.getElementById('go-006').addEventListener('click', () => showPage('page-006'));
+
+    document.getElementById('tlo-signup-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      document.getElementById('confirm-org-name').textContent = document.getElementById('org-name').value.trim() || '-';
+      document.getElementById('confirm-manager-name').textContent = document.getElementById('manager-name').value.trim() || '-';
+      document.getElementById('confirm-manager-phone').textContent = document.getElementById('manager-phone').value.trim() || '-';
+      document.getElementById('confirm-manager-email').textContent = document.getElementById('manager-email').value.trim() || '-';
+      showPage('page-005');
+    });
+
+    document.getElementById('company-signup-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      document.getElementById('confirm-company-name').textContent = document.getElementById('company-name').value.trim() || '-';
+      document.getElementById('confirm-company-member-name').textContent = document.getElementById('company-member-name').value.trim() || '-';
+      document.getElementById('confirm-company-member-phone').textContent = document.getElementById('company-member-phone').value.trim() || '-';
+      document.getElementById('confirm-company-member-email').textContent = document.getElementById('company-member-email').value.trim() || '-';
+      const patentSelect = document.getElementById('company-patent-type');
+      document.getElementById('confirm-company-patent-label').textContent = patentSelect.options[patentSelect.selectedIndex]?.text || '기업 특허 확인 정보';
+      document.getElementById('confirm-company-patent-value').textContent = document.getElementById('company-patent-ref').value.trim() || '-';
+      showPage('page-007');
+    });
+
+    document.getElementById('back-004').addEventListener('click', () => showPage('page-004'));
+    document.getElementById('home-from-005').addEventListener('click', () => showPage('page-001'));
+    document.getElementById('back-006').addEventListener('click', () => showPage('page-006'));
+    document.getElementById('home-from-007').addEventListener('click', () => showPage('page-001'));
+
+    document.getElementById('password-find-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      pwIdValue = document.getElementById('pw-user-id').value.trim() || '-';
+      pwNameValue = document.getElementById('pw-user-name').value.trim() || '-';
+      document.getElementById('pw-confirm-summary').textContent = (currentPwType === 'company' ? '기업회원' : 'TLO') + ' / ' + pwIdValue + ' / ' + pwNameValue;
+      document.getElementById('pw-code-sent-message').textContent = pwIdValue + ' 정보 기준으로 시범용 인증번호를 발송했습니다.';
+      showPage('page-009');
+    });
+
+    document.getElementById('password-code-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      showPage('page-010');
+    });
+
+    document.getElementById('password-reset-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      document.getElementById('pw-result-type').textContent = currentPwType === 'company' ? '기업회원' : 'TLO';
+      document.getElementById('pw-result-id').textContent = pwIdValue;
+      document.getElementById('pw-result-name').textContent = pwNameValue;
+      showPage('page-011');
+    });
+
+    document.getElementById('pw-back-008').addEventListener('click', () => showPage('page-008'));
+    document.getElementById('pw-resend').addEventListener('click', () => alert('시범용 화면입니다. 인증번호를 다시 발송한 것으로 처리합니다.'));
+    document.getElementById('go-002-from-011').addEventListener('click', () => showPage('page-002'));
+
+    const navMap = {
+      'go-101':'page-101','go-102':'page-102','go-103':'page-103','go-104':'page-104',
+      'go-103-from-101':'page-103',
+      'go-101-from-102':'page-101','go-103-from-102':'page-103','go-104-from-102':'page-104',
+      'go-101-from-103':'page-101','go-102-from-103':'page-102','go-104-from-103':'page-104',
+      'go-101-from-104':'page-101','go-102-from-104':'page-102','go-103-from-104':'page-103',
+      'go-101-from-105':'page-101','go-102-from-105':'page-102','go-103-from-105':'page-103','go-104-from-105':'page-104',
+      'go-101-from-106':'page-101','go-102-from-106':'page-102','go-103-from-106':'page-103','go-104-from-106':'page-104',
+      'back-102-from-105':'page-102','back-103-from-106':'page-103'
+    };
+
+    Object.keys(navMap).forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('click', () => showPage(navMap[id]));
+    });
+
+    document.querySelectorAll('.patent-detail-link').forEach(link => {
+      link.addEventListener('click', function(event) {
+        event.preventDefault();
+        showPage('page-105');
+      });
+    });
+
+    document.querySelectorAll('.related-detail-link').forEach(link => {
+      link.addEventListener('click', function(event) {
+        event.preventDefault();
+        showPage('page-106');
+      });
+    });
+
+    document.getElementById('cancel-107').addEventListener('click', () => showPage('page-101'));
+    document.getElementById('logout-107').addEventListener('click', () => showPage('page-001'));
+    document.getElementById('go-109').addEventListener('click', () => showPage('page-109'));
+    document.getElementById('back-107-from-109').addEventListener('click', () => showPage('page-107'));
+    document.getElementById('withdraw-109').addEventListener('click', () => showPage('page-001'));
+
+    document.getElementById('save-107').addEventListener('click', function() {
+      const company = document.getElementById('profile-company').value || '-';
+      const name = document.getElementById('profile-name').value || '-';
+      const dept = document.getElementById('profile-dept').value || '-';
+      const position = document.getElementById('profile-position').value || '-';
+      const phone = document.getElementById('profile-phone').value || '-';
+      const email = document.getElementById('profile-email').value || '-';
+      document.getElementById('profile-result-company').textContent = company;
+      document.getElementById('profile-result-name').textContent = name;
+      document.getElementById('profile-result-role').textContent = dept + ' / ' + position;
+      document.getElementById('profile-result-phone').textContent = phone;
+      document.getElementById('profile-result-email').textContent = email;
+      showPage('page-108');
+    });
+
+    document.getElementById('back-107-from-108').addEventListener('click', () => showPage('page-107'));
+    document.getElementById('go-101-from-108').addEventListener('click', () => showPage('page-101'));
+
+    setLoginType('tlo');
+    setPwType('tlo');
+    showPage('page-001');
+  </script>
+</body>
+</html>
