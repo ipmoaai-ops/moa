@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>모아아이 M230 디자인/상표</title>
+  <style>
+* { box-sizing: border-box; }
+:root {
+  --bg: #f4f8f8;
+  --surface: #ffffff;
+  --surface-soft: #f8fcfb;
+  --text: #0f172a;
+  --muted: #5b6b75;
+  --border: #d7e5e3;
+  --teal: #0f766e;
+  --teal-soft: #d9f2ef;
+  --soft-blue: #eaf4ff;
+  --shadow: 0 18px 45px rgba(15, 118, 110, 0.08);
+}
+body { margin: 0; font-family: "Pretendard","Noto Sans KR","Apple SD Gothic Neo",Arial,sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+a { text-decoration: none; color: inherit; }
+.container { width: min(1200px, calc(100% - 48px)); margin: 0 auto; }
+.header { position: sticky; top:0; z-index:20; background: rgba(255,255,255,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(215,229,227,0.9); }
+.header-inner { display:flex; align-items:flex-start; justify-content:space-between; gap:24px; min-height:84px; padding:18px 0 14px; }
+.brand { display:flex; flex-direction:column; gap:4px; }
+.brand-title { font-size:2rem; font-weight:800; letter-spacing:-0.03em; color:#102236; }
+.brand-sub { font-size:0.95rem; color:var(--muted); }
+.nav, .header-context { display:flex; align-items:center; justify-content:flex-end; gap:12px; margin-left:auto; align-self:flex-start; margin-top:2px; flex-wrap:wrap; }
+.nav a, .header-action-btn, .btn, .nav-btn, .action-btn, .profile-btn {
+  display:inline-flex; align-items:center; justify-content:center; min-width:108px; height:44px; padding:0 18px;
+  border-radius:999px; border:1px solid var(--border); background:var(--soft-blue); color:#23404d; font-weight:700; transition:.2s ease; cursor:pointer;
+}
+.current-user-chip {
+  display:inline-flex; align-items:center; justify-content:center; min-width:190px; height:52px; padding:0 22px;
+  border-radius:999px; border:1px solid #cfd9d7; background:#f7fbfa; color:#405260; font-size:1rem; font-weight:800;
+  cursor:default; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6);
+}
+.header-action-btn { min-width:120px; height:52px; padding:0 20px; font-size:0.98rem; font-weight:800; }
+.nav a:hover,.header-action-btn:hover,.btn:hover,.nav-btn:hover,.nav-btn.active,.action-btn:hover,.profile-btn:hover {
+  background: var(--teal); color:#fff; border-color:var(--teal); box-shadow:0 10px 22px rgba(15,118,110,.18);
+}
+.page { padding:48px 0 80px; background:var(--bg); }
+.panel, .summary-panel, .dashboard-header-card, .complete-card { background:rgba(255,255,255,.96); border:1px solid var(--border); border-radius:30px; padding:28px 26px; box-shadow:var(--shadow); }
+.dashboard-header-card { margin-bottom:24px; }
+.stats-grid,.detail-grid,.dual-grid { display:grid; gap:22px; }
+.stats-grid { grid-template-columns:repeat(5,minmax(0,1fr)); }
+.detail-grid { grid-template-columns:1fr 1fr; }
+.dual-grid { grid-template-columns:1fr 1fr; }
+.stat-card,.data-card,.detail-card,.card {
+  background:var(--surface); border:1px solid var(--border); border-radius:24px; padding:22px 20px; box-shadow:var(--shadow);
+}
+.data-card h3,.detail-card h3,.card h3 { margin:0 0 12px; font-size:1.35rem; letter-spacing:-.03em; color:#0f172a; }
+.muted,.data-card p,.detail-card p,.card p { color:var(--muted); }
+.dashboard-header-card h2,.complete-card h2,.panel h2 { margin:0; font-size:clamp(2rem,3.4vw,2.8rem); line-height:1.2; letter-spacing:-.04em; color:#0b1f30; }
+.note,.dashboard-note,.detail-summary,.profile-note { padding:16px 18px; border-radius:18px; border:1px solid var(--border); background:var(--surface-soft); color:#4f6070; font-size:.96rem; line-height:1.7; }
+.dashboard-header-top { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.page-nav { display:flex; gap:14px; flex-wrap:wrap; margin-top:24px; }
+
+.nav-btn,.action-btn,.profile-btn,.btn { min-width:150px; height:50px; border-radius:16px; }
+.switch-wrap { display:flex; justify-content:center; margin:20px 0 18px; }
+.switch-tabs {
+  display:inline-flex; gap:10px; padding:8px; border-radius:20px;
+  background:#edf5f4; border:1px solid var(--border);
+}
+.switch-btn {
+  min-width:140px; height:48px; padding:0 20px; border:none;
+  border-radius:14px; background:transparent; color:#23404d; font-size:1rem;
+  font-weight:800; cursor:pointer; transition:.2s ease;
+}
+.switch-btn.active, .switch-btn:hover {
+  background:var(--teal); color:#fff; box-shadow:0 10px 22px rgba(15,118,110,.18);
+}
+.tab-panel { display:none; }
+.tab-panel.active { display:block; }
+
+.stat-card .label { font-size:.95rem; color:#5b6b75; font-weight:700; margin-bottom:10px; }
+.stat-card .value { font-size:2rem; line-height:1.1; letter-spacing:-.04em; font-weight:900; color:#0b1f30; }
+.stat-card .sub { margin-top:8px; color:#6a7a86; font-size:.92rem; }
+.table { width:100%; border-collapse:collapse; }
+.table th,.table td { padding:14px 12px; border-bottom:1px solid #dbe7e5; text-align:left; font-size:.96rem; vertical-align:top; }
+.table th { color:#5b6b75; font-weight:800; }
+.table td { color:#0f172a; }
+.tag { display:inline-flex; align-items:center; justify-content:center; min-width:70px; min-height:32px; padding:0 12px; border-radius:999px; background:var(--soft-blue); border:1px solid var(--border); color:#23404d; font-size:.86rem; font-weight:800; }
+.keyword-badges { display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; }
+.keyword-badge { display:inline-flex; align-items:center; justify-content:center; min-height:34px; padding:0 14px; border-radius:999px; border:1px solid var(--border); background:var(--soft-blue); color:#23404d; font-size:.9rem; font-weight:800; }
+.footer-space { height: 24px; }
+@media (max-width:1080px){
+  .stats-grid,.detail-grid,.dual-grid { grid-template-columns:1fr; }
+}
+@media (max-width:760px){
+  .container { width:min(100% - 28px,1200px); }
+  .header-inner { min-height:auto; padding:16px 0; align-items:flex-start; flex-direction:column; }
+  .nav,.header-context { gap:10px; }
+  .panel,.summary-panel,.dashboard-header-card,.complete-card,.stat-card,.data-card,.detail-card,.card { padding:22px 18px; border-radius:24px; }
+  .dashboard-header-top { flex-direction:column; align-items:flex-start; }
+}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <div class="brand">
+        <a href="M100.html" class="brand-title">모아아이</a>
+        <div class="brand-sub">보유 특허 관리 및 기술연계 플랫폼</div>
+      </div>
+      <div class="header-context">
+        <span class="current-user-chip">대박전자 전현무님</span>
+        <a href="M210.html" class="header-action-btn">정보관리</a>
+        <a href="M110.html" class="header-action-btn">로그아웃</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page" style="display:block;">
+    <section>
+      <div class="container">
+        <div class="dashboard-header-card">
+          <div class="dashboard-header-top">
+            <div>
+              <h2>디자인/상표</h2>
+              <p class="muted">대박전자의 디자인 및 상표 현황을 샘플 데이터 기준으로 확인할 수 있는 화면입니다.</p>
+            </div>
+          </div>
+          <div class="page-nav">
+            <a href="M200.html" class="nav-btn">종합 매인화면</a>
+            <a href="M220.html" class="nav-btn">자사 보유특허 현황</a>
+            <a href="M240.html" class="nav-btn">연관 기관 신규특허</a>
+            <a href="M230.html" class="nav-btn active">디자인/상표</a>
+            <a href="M250.html" class="nav-btn">특허관리(연차료) 현황</a>
+            <a href="M260.html" class="nav-btn">최근조회</a>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="label">디자인 출원</div>
+            <div class="value">6</div>
+            <div class="sub">심사 진행 포함</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">디자인 등록</div>
+            <div class="value">12</div>
+            <div class="sub">유지 중 기준</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">상표 출원</div>
+            <div class="value">4</div>
+            <div class="sub">국내 기준</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">상표 등록</div>
+            <div class="value">9</div>
+            <div class="sub">유효 권리 기준</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">관리 대상</div>
+            <div class="value">31</div>
+            <div class="sub">디자인/상표 합계</div>
+          </div>
+        </div>
+        <div class="data-card" style="margin-top:18px;">
+          <h3>디자인 / 상표 조회</h3>
+          <p class="muted">중간 선택 버튼을 눌러 디자인 또는 상표 내용을 하나의 화면에서 전환해 볼 수 있는 샘플 구성입니다.</p>
+
+          <div class="switch-wrap">
+            <div class="switch-tabs">
+              <button type="button" class="switch-btn active" id="tab-design-btn">디자인</button>
+              <button type="button" class="switch-btn" id="tab-trademark-btn">상표</button>
+            </div>
+          </div>
+
+          <div class="tab-panel active" id="tab-design-panel">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>출원번호</th>
+                  <th>명칭</th>
+                  <th>상태</th>
+                  <th>비고</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>30-2025-0001234</td>
+                  <td>반도체 모듈 하우징 디자인</td>
+                  <td><span class="tag">등록</span></td>
+                  <td>주력 제품 외관</td>
+                </tr>
+                <tr>
+                  <td>30-2025-0002231</td>
+                  <td>회로기판 포장 케이스 디자인</td>
+                  <td><span class="tag">출원</span></td>
+                  <td>패키지 적용 예정</td>
+                </tr>
+                <tr>
+                  <td>30-2024-0008872</td>
+                  <td>검사장치 전면 패널 디자인</td>
+                  <td><span class="tag">등록</span></td>
+                  <td>장비 외형 보호</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="tab-panel" id="tab-trademark-panel">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>출원번호</th>
+                  <th>상표명</th>
+                  <th>상태</th>
+                  <th>지정상품</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>40-2025-0010022</td>
+                  <td>DAEBAK FLEX</td>
+                  <td><span class="tag">등록</span></td>
+                  <td>전자부품, 회로기판</td>
+                </tr>
+                <tr>
+                  <td>40-2025-0011188</td>
+                  <td>DB CONNECT</td>
+                  <td><span class="tag">출원</span></td>
+                  <td>커넥터, 부품 모듈</td>
+                </tr>
+                <tr>
+                  <td>40-2024-0099011</td>
+                  <td>대박전자</td>
+                  <td><span class="tag">등록</span></td>
+                  <td>기판, 검사장비</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div class="footer-space"></div>
+
+<script>
+const designBtn = document.getElementById('tab-design-btn');
+const trademarkBtn = document.getElementById('tab-trademark-btn');
+const designPanel = document.getElementById('tab-design-panel');
+const trademarkPanel = document.getElementById('tab-trademark-panel');
+
+function showDesignTab() {
+  designBtn.classList.add('active');
+  trademarkBtn.classList.remove('active');
+  designPanel.classList.add('active');
+  trademarkPanel.classList.remove('active');
+}
+
+function showTrademarkTab() {
+  trademarkBtn.classList.add('active');
+  designBtn.classList.remove('active');
+  trademarkPanel.classList.add('active');
+  designPanel.classList.remove('active');
+}
+
+designBtn.addEventListener('click', showDesignTab);
+trademarkBtn.addEventListener('click', showTrademarkTab);
+</script>
+</body>
+</html>
+

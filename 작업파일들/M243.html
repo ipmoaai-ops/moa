@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>모아아이 M243 문의 요청 완료</title>
+  <style>
+* { box-sizing: border-box; }
+:root {
+  --bg: #f4f8f8;
+  --surface: #ffffff;
+  --surface-soft: #f8fcfb;
+  --text: #0f172a;
+  --muted: #5b6b75;
+  --border: #d7e5e3;
+  --teal: #0f766e;
+  --soft-blue: #eaf4ff;
+  --shadow: 0 18px 45px rgba(15, 118, 110, 0.08);
+}
+body { margin: 0; font-family: "Pretendard","Noto Sans KR","Apple SD Gothic Neo",Arial,sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+a { text-decoration: none; color: inherit; }
+.container { width: min(1200px, calc(100% - 48px)); margin: 0 auto; }
+.header { position: sticky; top:0; z-index:20; background: rgba(255,255,255,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(215,229,227,0.9); }
+.header-inner { display:flex; align-items:flex-start; justify-content:space-between; gap:24px; min-height:84px; padding:18px 0 14px; }
+.brand { display:flex; flex-direction:column; gap:4px; }
+.brand-title { font-size:2rem; font-weight:800; letter-spacing:-0.03em; color:#102236; }
+.brand-sub { font-size:0.95rem; color:var(--muted); }
+.header-context { display:flex; align-items:center; justify-content:flex-end; gap:12px; margin-left:auto; align-self:flex-start; margin-top:2px; flex-wrap:wrap; }
+.header-action-btn, .action-btn, .nav-btn {
+  display:inline-flex; align-items:center; justify-content:center; min-width:120px; height:52px; padding:0 20px;
+  border-radius:999px; border:1px solid var(--border); background:var(--soft-blue); color:#23404d; font-size:0.98rem; font-weight:800; transition:.2s ease; cursor:pointer;
+}
+.current-user-chip {
+  display:inline-flex; align-items:center; justify-content:center; min-width:190px; height:52px; padding:0 22px;
+  border-radius:999px; border:1px solid #cfd9d7; background:#f7fbfa; color:#405260; font-size:1rem; font-weight:800;
+  cursor:default; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6);
+}
+.header-action-btn:hover, .action-btn:hover, .nav-btn:hover, .nav-btn.active {
+  background: var(--teal); color:#fff; border-color:var(--teal); box-shadow:0 10px 22px rgba(15,118,110,.18);
+}
+.page { padding:48px 0 80px; background:var(--bg); }
+.dashboard-header-card, .complete-card, .info-card {
+  background:rgba(255,255,255,.96); border:1px solid var(--border); border-radius:30px; padding:28px 26px; box-shadow:var(--shadow);
+}
+.dashboard-header-card { margin-bottom:24px; }
+.dashboard-header-top { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.dashboard-header-card h2, .complete-card h2 { margin:0; font-size:clamp(2rem,3.4vw,2.8rem); line-height:1.2; letter-spacing:-.04em; color:#0b1f30; }
+.muted { color:var(--muted); }
+.page-nav { display:flex; gap:14px; flex-wrap:wrap; margin-top:24px; }
+.complete-info-box {
+  padding:18px 20px; border-radius:20px; border:1px solid var(--border); background:var(--surface-soft);
+}
+.complete-row {
+  display:flex; justify-content:space-between; gap:16px; padding:14px 0; border-bottom:1px solid #dbe7e5; align-items:flex-start;
+}
+.complete-row:last-child { border-bottom:none; }
+.complete-row span { color:#4f6070; font-weight:700; }
+.complete-row strong { color:#0f172a; text-align:right; word-break:break-all; }
+.note {
+  padding:16px 18px; border-radius:18px; border:1px solid var(--border);
+  background:var(--surface-soft); color:#4f6070; font-size:.96rem; line-height:1.7;
+}
+.complete-actions { display:flex; justify-content:flex-end; gap:12px; flex-wrap:wrap; margin-top:18px; }
+.footer-space { height: 24px; }
+@media (max-width:760px){
+  .container { width:min(100% - 28px,1200px); }
+  .header-inner { min-height:auto; padding:16px 0; align-items:flex-start; flex-direction:column; }
+  .header-context { gap:10px; }
+  .dashboard-header-card, .complete-card, .info-card { padding:22px 18px; border-radius:24px; }
+  .dashboard-header-top, .complete-row, .complete-actions { flex-direction:column; align-items:flex-start; }
+  .complete-row strong { text-align:left; }
+}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <div class="brand">
+        <a href="M100.html" class="brand-title">모아아이</a>
+        <div class="brand-sub">보유 특허 관리 및 기술연계 플랫폼</div>
+      </div>
+      <div class="header-context">
+        <span class="current-user-chip">대박전자 전현무님</span>
+        <a href="M210.html" class="header-action-btn">정보관리</a>
+        <a href="M110.html" class="header-action-btn">로그아웃</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page" style="display:block;">
+    <section>
+      <div class="container">
+        <div class="dashboard-header-card">
+          <div class="dashboard-header-top">
+            <div>
+              <h2>문의 요청 완료</h2>
+              <p class="muted">해당 기술에 대한 문의 요청이 정상적으로 접수되었습니다.</p>
+            </div>
+          </div>
+          <div class="page-nav">
+            <a href="M200.html" class="nav-btn">종합 매인화면</a>
+            <a href="M220.html" class="nav-btn">자사 보유특허 현황</a>
+            <a href="M240.html" class="nav-btn active">연관 기관 신규특허</a>
+            <a href="M230.html" class="nav-btn">디자인/상표</a>
+            <a href="M250.html" class="nav-btn">특허관리(연차료) 현황</a>
+            <a href="M260.html" class="nav-btn">최근조회</a>
+          </div>
+        </div>
+
+        <div class="complete-card">
+          <h2>요청이 완료되었습니다</h2>
+          <p class="muted">아래 신청 내용을 확인해 주세요. 담당자 확인 후 연락드릴 예정입니다.</p>
+
+          <div class="complete-info-box">
+            <div class="complete-row"><span>문의 대상 기술</span><strong>고밀도 패키지 기판용 열전달 구조</strong></div>
+            <div class="complete-row"><span>기관명</span><strong>한양대학교 ERICA</strong></div>
+            <div class="complete-row"><span>문의 목적</span><strong>협력 검토 / 기술이전 문의</strong></div>
+            <div class="complete-row"><span>회사명</span><strong>대박전자</strong></div>
+            <div class="complete-row"><span>담당자명</span><strong>전현무</strong></div>
+            <div class="complete-row"><span>연락처</span><strong>010-1234-5678</strong></div>
+            <div class="complete-row"><span>이메일</span><strong>jhm@daebak.co.kr</strong></div>
+            <div class="complete-row"><span>추가 전달사항</span><strong>기술 적용 가능 범위와 협력 가능성을 우선 검토하고 싶습니다.</strong></div>
+          </div>
+
+          <div class="note" style="margin-top:18px;">
+            요청 내용은 담당자에게 전달되며, 검토 후 순차적으로 연락드릴 예정입니다.
+          </div>
+
+          <div class="complete-actions">
+            <a href="M240.html" class="action-btn">돌아가기</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="footer-space"></div>
+</body>
+</html>
