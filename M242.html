@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>모아아이 M242 추가 문의</title>
+  <style>
+* { box-sizing: border-box; }
+:root {
+  --bg: #f4f8f8;
+  --surface: #ffffff;
+  --surface-soft: #f8fcfb;
+  --text: #0f172a;
+  --muted: #5b6b75;
+  --border: #d7e5e3;
+  --teal: #0f766e;
+  --teal-soft: #d9f2ef;
+  --soft-blue: #eaf4ff;
+  --shadow: 0 18px 45px rgba(15, 118, 110, 0.08);
+}
+body { margin: 0; font-family: "Pretendard","Noto Sans KR","Apple SD Gothic Neo",Arial,sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+a { text-decoration: none; color: inherit; }
+.container { width: min(1200px, calc(100% - 48px)); margin: 0 auto; }
+.header { position: sticky; top:0; z-index:20; background: rgba(255,255,255,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(215,229,227,0.9); }
+.header-inner { display:flex; align-items:flex-start; justify-content:space-between; gap:24px; min-height:84px; padding:18px 0 14px; }
+.brand { display:flex; flex-direction:column; gap:4px; }
+.brand-title { font-size:2rem; font-weight:800; letter-spacing:-0.03em; color:#102236; }
+.brand-sub { font-size:0.95rem; color:var(--muted); }
+.nav, .header-context { display:flex; align-items:center; justify-content:flex-end; gap:12px; margin-left:auto; align-self:flex-start; margin-top:2px; flex-wrap:wrap; }
+.nav a, .header-action-btn, .btn, .nav-btn, .action-btn, .profile-btn {
+  display:inline-flex; align-items:center; justify-content:center; min-width:108px; height:44px; padding:0 18px;
+  border-radius:999px; border:1px solid var(--border); background:var(--soft-blue); color:#23404d; font-weight:700; transition:.2s ease; cursor:pointer;
+}
+.current-user-chip {
+  display:inline-flex; align-items:center; justify-content:center; min-width:190px; height:52px; padding:0 22px;
+  border-radius:999px; border:1px solid #cfd9d7; background:#f7fbfa; color:#405260; font-size:1rem; font-weight:800;
+  cursor:default; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6);
+}
+.header-action-btn { min-width:120px; height:52px; padding:0 20px; font-size:0.98rem; font-weight:800; }
+.nav a:hover,.header-action-btn:hover,.btn:hover,.nav-btn:hover,.nav-btn.active,.action-btn:hover,.profile-btn:hover {
+  background: var(--teal); color:#fff; border-color:var(--teal); box-shadow:0 10px 22px rgba(15,118,110,.18);
+}
+.page { padding:48px 0 80px; background:var(--bg); }
+.panel, .dashboard-header-card, .data-card, .detail-card {
+  background:rgba(255,255,255,.96); border:1px solid var(--border); border-radius:30px; padding:28px 26px; box-shadow:var(--shadow);
+}
+.dashboard-header-card { margin-bottom:24px; }
+.detail-grid, .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+.dashboard-header-top { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.dashboard-header-card h2 { margin:0; font-size:clamp(2rem,3.4vw,2.8rem); line-height:1.2; letter-spacing:-.04em; color:#0b1f30; }
+.muted { color:var(--muted); }
+.page-nav { display:flex; gap:14px; flex-wrap:wrap; margin-top:24px; }
+.nav-btn,.action-btn,.profile-btn,.btn { min-width:150px; height:50px; border-radius:16px; }
+.data-card h3, .detail-card h3 { margin:0 0 12px; font-size:1.35rem; letter-spacing:-.03em; color:#0f172a; }
+.note, .detail-summary {
+  padding:16px 18px; border-radius:18px; border:1px solid var(--border);
+  background:var(--surface-soft); color:#4f6070; font-size:.96rem; line-height:1.7;
+}
+.detail-list { display:grid; gap:12px; }
+.detail-item { padding-bottom:12px; border-bottom:1px solid #dbe7e5; }
+.detail-item:last-child { border-bottom:none; padding-bottom:0; }
+.detail-item .k { display:block; font-size:.9rem; color:#5b6b75; font-weight:800; margin-bottom:4px; }
+.detail-item .v { display:block; font-size:1rem; color:#0f172a; line-height:1.7; }
+.form { display:flex; flex-direction:column; gap:12px; }
+.field { display:flex; flex-direction:column; gap:8px; }
+label { font-size:1rem; font-weight:800; color:#0f172a; }
+input, select, textarea {
+  width:100%; min-height:52px; padding:0 16px; border-radius:16px; border:1px solid #cfd9d7;
+  background:#fff; font-size:1rem; color:#0f172a; outline:none; transition:border-color .2s ease, box-shadow .2s ease;
+}
+textarea { min-height:140px; padding:14px 16px; resize:vertical; }
+input:focus, select:focus, textarea:focus { border-color:var(--teal); box-shadow:0 0 0 4px rgba(15,118,110,.10); }
+.readonly { background:#f7fbfa !important; color:#5b6b75 !important; }
+.option-grid { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:12px; }
+.option-item {
+  display:flex; align-items:center; gap:10px; min-height:52px; padding:0 16px;
+  border:1px solid var(--border); border-radius:16px; background:var(--surface-soft);
+}
+.option-item input { width:auto; min-height:auto; }
+.actions { display:flex; justify-content:flex-end; gap:12px; flex-wrap:wrap; margin-top:18px; }
+.footer-space { height:24px; }
+@media (max-width:1080px){
+  .detail-grid, .form-grid, .option-grid { grid-template-columns:1fr; }
+}
+@media (max-width:760px){
+  .container { width:min(100% - 28px,1200px); }
+  .header-inner { min-height:auto; padding:16px 0; align-items:flex-start; flex-direction:column; }
+  .nav,.header-context { gap:10px; }
+  .dashboard-header-card, .data-card, .detail-card { padding:22px 18px; border-radius:24px; }
+  .dashboard-header-top, .actions { flex-direction:column; align-items:flex-start; }
+}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <div class="brand">
+        <a href="M100.html" class="brand-title">모아아이</a>
+        <div class="brand-sub">보유 특허 관리 및 기술연계 플랫폼</div>
+      </div>
+      <div class="header-context">
+        <span class="current-user-chip">대박전자 전현무님</span>
+        <a href="M210.html" class="header-action-btn">정보관리</a>
+        <a href="M110.html" class="header-action-btn">로그아웃</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page" style="display:block;">
+    <section>
+      <div class="container">
+        <div class="dashboard-header-card">
+          <div class="dashboard-header-top">
+            <div>
+              <h2>해당 기술에 대한 추가 문의</h2>
+              <p class="muted">협력, 기술이전, 기술 사용 등 문의 목적을 선택하고 담당자 정보를 확인한 뒤 요청할 수 있는 샘플 페이지입니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-grid">
+          <div class="detail-card">
+            <h3>문의 대상 기술 정보</h3>
+            <div class="detail-list">
+              <div class="detail-item"><span class="k">기관명</span><span class="v">한양대학교 ERICA</span></div>
+              <div class="detail-item"><span class="k">기술명</span><span class="v">고밀도 패키지 기판용 열전달 구조</span></div>
+              <div class="detail-item"><span class="k">등록번호</span><span class="v">10-2811111</span></div>
+              <div class="detail-item"><span class="k">연관 키워드</span><span class="v">방열, 패키지기판, 열전달, 고집적 회로</span></div>
+            </div>
+            <div class="detail-summary" style="margin-top:16px;">
+              본 페이지는 해당 기술에 대해 추가 상담, 기술이전 검토, 공동협력 제안, 기술 사용 가능성 문의 등을 전달하기 위한 샘플 화면입니다.
+            </div>
+          </div>
+
+          <div class="detail-card">
+            <h3>문의자 정보 확인</h3>
+            <div class="detail-list">
+              <div class="detail-item"><span class="k">회사명</span><span class="v">대박전자</span></div>
+              <div class="detail-item"><span class="k">담당자명</span><span class="v">전현무</span></div>
+              <div class="detail-item"><span class="k">현재 연락처</span><span class="v">010-1234-5678</span></div>
+              <div class="detail-item"><span class="k">현재 이메일</span><span class="v">jhm@daebak.co.kr</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="data-card" style="margin-top:18px;">
+          <h3>문의 내용 작성</h3>
+          <form class="form">
+            <div class="field">
+              <label>문의 목적 선택</label>
+              <div class="option-grid">
+                <label class="option-item"><input type="checkbox" name="purpose" /> 협력 검토</label>
+                <label class="option-item"><input type="checkbox" name="purpose" /> 기술이전 문의</label>
+                <label class="option-item"><input type="checkbox" name="purpose" /> 기술 사용 문의</label>
+                <label class="option-item"><input type="checkbox" name="purpose" /> 공동연구 제안</label>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="request-summary">간단 문의 내용</label>
+              <textarea id="request-summary" placeholder="예: 해당 기술의 적용 가능 범위와 기술이전 가능 여부를 검토하고 싶습니다."></textarea>
+            </div>
+
+            <div class="form-grid">
+              <div class="field">
+                <label for="reply-phone">연락 받을 연락처</label>
+                <input id="reply-phone" type="text" value="010-1234-5678" />
+              </div>
+              <div class="field">
+                <label for="reply-email">연락 받을 이메일</label>
+                <input id="reply-email" type="email" value="jhm@daebak.co.kr" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="reply-note">추가 전달사항</label>
+              <textarea id="reply-note" placeholder="필요한 일정, 회신 방식, 검토 요청 사항 등을 입력해 주세요."></textarea>
+            </div>
+
+            <div class="note">
+              문의자 회사와 담당자 정보는 확인용으로 표시되며, 회신 받을 연락처와 이메일은 아래 입력값으로 수정할 수 있습니다.
+            </div>
+
+            <div class="actions">
+              <a href="M241.html" class="action-btn">취소</a>
+              <a href="M243.html" class="action-btn">요청하기</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="footer-space"></div>
+</body>
+</html>
