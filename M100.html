@@ -37,16 +37,17 @@ a { text-decoration: none; color: inherit; }
 }
 .page { padding:48px 0 80px; background:var(--bg); }
 .hero-wrap { padding:54px 0 30px; }
-.hero { display:grid; grid-template-columns:1.08fr .92fr; gap:40px; align-items:center; padding:64px 40px; background:linear-gradient(180deg,#f2fbfa 0%,#eef6f6 100%); border:1px solid var(--border); border-radius:36px; }
+.hero { display:block; padding:78px 56px; background:linear-gradient(180deg,#f2fbfa 0%,#eef6f6 100%); border:1px solid var(--border); border-radius:36px; }
+.hero-copy { max-width:860px; margin:0 auto; text-align:center; }
 .eyebrow { display:inline-flex; align-items:center; padding:10px 16px; border-radius:999px; background:var(--teal-soft); color:var(--teal); font-size:.95rem; font-weight:700; margin-bottom:22px; }
 .hero h1 { margin:0; font-size:clamp(2.2rem,4.2vw,3.5rem); line-height:1.16; letter-spacing:-.05em; font-weight:850; color:#0b1f30; }
-.hero p { margin:26px 0 0; font-size:1.18rem; color:#445463; max-width:780px; }
+.hero p { margin:26px auto 0; font-size:1.18rem; color:#445463; max-width:860px; }
 .hero-actions { display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end; margin-top:32px; }
 .panel, .summary-panel, .dashboard-header-card, .complete-card { background:rgba(255,255,255,.96); border:1px solid var(--border); border-radius:30px; padding:28px 26px; box-shadow:var(--shadow); }
 .dashboard-header-card { margin-bottom:24px; }
 .summary-grid,.feature-grid,.stats-grid,.detail-grid,.profile-layout,.auth-layout,.dual-grid { display:grid; gap:22px; }
 .summary-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
-.feature-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.feature-grid { grid-template-columns:repeat(2,minmax(0,1fr)); max-width:980px; margin:0 auto; }
 .stats-grid { grid-template-columns:repeat(5,minmax(0,1fr)); }
 .detail-grid { grid-template-columns:1fr 1fr; }
 .profile-layout { grid-template-columns:1fr 1fr; }
@@ -112,13 +113,15 @@ input:focus,select:focus,textarea:focus { border-color:var(--teal); box-shadow:0
 .complete-row strong { color:#0f172a; text-align:right; word-break:break-all; }
 .footer-space { height: 24px; }
 @media (max-width:1080px){
-  .hero,.summary-grid,.feature-grid,.stats-grid,.detail-grid,.profile-layout,.auth-layout,.dual-grid,.compact-form-grid,.profile-grid,.insight-grid { grid-template-columns:1fr; }
+  .feature-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .hero,.summary-grid,.stats-grid,.detail-grid,.profile-layout,.auth-layout,.dual-grid,.compact-form-grid,.profile-grid,.insight-grid { grid-template-columns:1fr; }
 }
 @media (max-width:760px){
   .container { width:min(100% - 28px,1200px); }
+  .feature-grid { grid-template-columns:1fr; }
   .header-inner { min-height:auto; padding:16px 0; align-items:flex-start; flex-direction:column; }
   .nav,.header-context { gap:10px; }
-  .hero { padding:34px 22px; border-radius:26px; }
+  .hero { padding:44px 24px; border-radius:26px; }
   .hero h1 { font-size:2rem; }
   .panel,.summary-panel,.dashboard-header-card,.complete-card,.mini-card,.stat-card,.data-card,.detail-card,.profile-card,.card { padding:22px 18px; border-radius:24px; }
   .tab-wrap { grid-template-columns:1fr; }
@@ -134,7 +137,7 @@ input:focus,select:focus,textarea:focus { border-color:var(--teal); box-shadow:0
   <div class="container header-inner">
     <div class="brand">
       <a href="M100.html" class="brand-title">모아아이</a>
-      <div class="brand-sub">보유 특허 관리 및 기술연계 플랫폼</div>
+      <div class="brand-sub">AI 기반 기술사업화 연계 플랫폼</div>
     </div>
     <nav class="nav" id="header-nav"><a href="M110.html">로그인</a><a href="M130.html">회원가입</a></nav>
   </div>
@@ -144,22 +147,10 @@ input:focus,select:focus,textarea:focus { border-color:var(--teal); box-shadow:0
 <section class="hero-wrap">
   <div class="container">
     <div class="hero">
-      <div>
-        <span class="eyebrow">AI 기반 대학 보유기술 관리 서비스</span>
-        <h1>보유 기술 특허 관리와<br />기업 수요 연계를 하나로</h1>
-        <p>모아아이는 TLO의 특허 관리, 기술 분류, 수요기업 검토, 기술이전 검토 업무를 효율화하고, 기업회원에게는 도입 가능한 대학 보유기술을 보다 쉽게 탐색할 수 있는 환경을 제공합니다.</p>
-        <div class="hero-actions">
-          <a href="M110.html" class="btn">로그인하기</a>
-          <a href="M130.html" class="btn">회원가입</a>
-        </div>
-      </div>
-      <div class="summary-panel">
-        <div class="summary-grid">
-          <article class="mini-card"><h3>보유특허 현황 관리</h3><p>출원번호, 발명명칭, 기술분야, 상태를 체계적으로 관리합니다.</p></article>
-          <article class="mini-card"><h3>AI 기술요약</h3><p>복잡한 특허 문헌을 빠르게 검토할 수 있도록 핵심 내용을 정리합니다.</p></article>
-          <article class="mini-card"><h3>TLO 업무 지원</h3><p>상담, 제안, 포트폴리오 구성, 수요기업 대응 자료 작성에 활용할 수 있습니다.</p></article>
-          <article class="mini-card"><h3>기업회원 탐색 기능</h3><p>기업은 관심 기술을 검색하고 협력 가능한 기술을 우선 검토할 수 있습니다.</p></article>
-        </div>
+      <div class="hero-copy">
+        <span class="eyebrow">AI 기반 미래 선도 기술 연결 서비스</span>
+        <h1>미래 선도 기술을 먼저 발견하고,<br />사업화 기회로 연결합니다</h1>
+        <p>대학·공공연구기관은 미래 선도 기술을 연구하고,<br />기업은 이러한 기술을 조기에 발견하여 새로운 사업 가능성을 찾고 있습니다.<br />모아아이는 양측의 기술과 수요를 AI로 분석하여<br />기술이전, 공동연구, 기술도입으로 이어질 수 있는 연결 기회를 제공합니다.</p>
       </div>
     </div>
   </div>
@@ -168,12 +159,13 @@ input:focus,select:focus,textarea:focus { border-color:var(--teal); box-shadow:0
   <div class="container">
     <div class="section-head">
       <h2>모아아이의 주요 기능</h2>
-      <p>특허 관리, 기술 분류, 기업 탐색, 기술이전 검토를 위한 핵심 기능을 담았습니다.</p>
+      <p>대학·공공연구기관의 보유기술 분석부터 기업 IP 관리, 맞춤형 기술 추천, 협력 연결까지 지원합니다.</p>
     </div>
     <div class="feature-grid">
-      <article class="mini-card"><div class="feature-no">01</div><h3>특허 포트폴리오 관리</h3><p>기관 보유특허를 상태, 기술분야, 적용산업, 발명자 기준으로 정리합니다.</p></article>
-      <article class="mini-card"><div class="feature-no">02</div><h3>기술 분류 및 요약</h3><p>특허별 기술 요약, 분류 체계, 연관기술 정보를 함께 표시합니다.</p></article>
-      <article class="mini-card"><div class="feature-no">03</div><h3>기업 수요 기반 탐색</h3><p>관심 분야 키워드 중심으로 보유기술을 검색하고 협력 후보 기술을 찾습니다.</p></article>
+      <article class="mini-card"><div class="feature-no">01</div><h3>미래 선도 기술·연구자 분석</h3><p>대학·공공연구기관이 보유한 특허와 연구자의 연구 내용을 AI로 분석하여, 기관별 핵심 기술, 연구 방향, 사업화 가능성이 높은 미래 선도 기술을 발굴합니다.</p></article>
+      <article class="mini-card"><div class="feature-no">02</div><h3>기업 IP 통합 관리</h3><p>기업이 보유한 특허·디자인·상표 정보를 특허청 API와 연동하여 한눈에 확인하고, 권리 상태와 관리 정보를 체계적으로 관리할 수 있습니다.</p></article>
+      <article class="mini-card"><div class="feature-no">03</div><h3>기업 맞춤형 미래 기술 추천</h3><p>기업의 보유 특허를 기반으로 기업의 기술 역량과 연구 방향을 분석하고, 대학·공공연구기관 보유기술 중 기업과 연관성이 높은 기술을 상시 추천합니다.</p></article>
+      <article class="mini-card"><div class="feature-no">04</div><h3>기술이전·공동연구 연결</h3><p>기업의 관심 기술과 연구기관의 보유기술을 매칭하여 기술이전, 기술도입, 공동연구 등 실질적인 협력으로 이어질 수 있도록 연결합니다.</p></article>
     </div>
   </div>
 </section>

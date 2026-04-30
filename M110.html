@@ -126,6 +126,52 @@ input:focus,select:focus,textarea:focus { border-color:var(--teal); box-shadow:0
   .status-item { grid-template-columns:1fr; }
   .complete-row strong { text-align:left; }
 }
+
+.login-panel-desc {
+  margin: 18px 0 24px;
+}
+.login-panel-desc p {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+.login-form-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+.login-form-card label {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+.login-help-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -2px;
+  font-size: .98rem;
+}
+.login-help-row a,
+.login-join-text a {
+  color: var(--teal);
+  font-weight: 800;
+}
+.login-join-text {
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 1rem;
+  text-align: center;
+}
+.login-submit-btn {
+  width: 100%;
+  margin-top: 4px;
+}
+@media (max-width:1080px){
+  .dual-grid { grid-template-columns:1fr; }
+}
+
 </style>
   
 </head>
@@ -134,82 +180,74 @@ input:focus,select:focus,textarea:focus { border-color:var(--teal); box-shadow:0
   <div class="container header-inner">
     <div class="brand">
       <a href="M100.html" class="brand-title">모아아이</a>
-      <div class="brand-sub">보유 특허 관리 및 기술연계 플랫폼</div>
+      <div class="brand-sub">AI 기반 기술사업화 연계 플랫폼</div>
     </div>
     <nav class="nav" id="header-nav"><a href="M110.html">로그인</a><a href="M130.html">회원가입</a></nav>
   </div>
 </header>
   <main class="page" style="display:block;">
     
+
 <section>
   <div class="container">
-    <div class="auth-layout">
-      <div class="panel">
-        <h2>로그인 유형 안내</h2>
-        <p class="muted">사용자 유형에 따라 로그인 화면을 구분하여 제공합니다. 목적에 맞는 로그인 유형을 선택해 주세요.</p>
-        <div class="card"><h3>TLO 로그인</h3><p>대학 산학협력단, 기술지주회사, 기술이전 전담조직 등 내부 운영 사용자를 위한 로그인입니다.</p></div>
-        <div class="card"><h3>기업회원 로그인</h3><p>기술 도입, 공동연구, 협력 검토를 원하는 기업 사용자를 위한 로그인입니다.</p></div>
-        <div class="card"><h3>회원가입</h3><p>아직 계정이 없다면 로그인 유형에 맞는 회원가입 절차를 통해 서비스를 이용할 수 있습니다.</p></div>
-      </div>
-      <div class="panel">
-        <h2>로그인</h2>
-        <p class="muted">사용자 유형을 선택한 후 계정 정보를 입력해 주세요. 로그인 시에는 가입한 이메일 주소를 아이디로 사용합니다.</p>
-        <div class="tab-wrap">
-          <button type="button" class="tab-btn active" id="login-tab-tlo">TLO 로그인</button>
-          <button type="button" class="tab-btn" id="login-tab-company">기업회원 로그인</button>
+    <div class="section-head">
+      <h2>로그인</h2>
+      <p>가입 유형에 따라 로그인 대상을 선택한 후 계정 정보를 입력해 주세요.</p>
+    </div>
+    <div class="dual-grid">
+      <article class="panel">
+        <h2>대학·공공연구기관 로그인</h2>
+        <div class="login-panel-desc">
+          <p>대학·공공연구기관의 기술이전 및 사업화 업무 지원을 위한 로그인입니다.</p>
+          <p>보유기술과 연구자 정보를 AI로 분석하고, 기업과의 기술이전·공동연구 기회를 확인하세요.</p>
         </div>
-        <form class="form" id="login-form">
-          <label for="login-id" id="login-id-label">TLO 이메일 주소</label>
-          <input id="login-id" type="text" placeholder="이메일 주소를 입력하세요" />
-          <label for="login-password">비밀번호</label>
-          <input id="login-password" type="password" placeholder="비밀번호를 입력하세요" />
-          <div class="meta-row">
-            <span id="login-desc">기관 내부 사용자 전용</span>
-            <a href="M120.html">비밀번호 찾기</a>
-          </div>
-          <button type="submit" class="btn" style="width:100%;">로그인</button>
+        <form class="login-form-card" id="tlo-login-form">
+          <label for="tlo-email">이메일</label>
+          <input id="tlo-email" type="email" placeholder="이메일 주소를 입력하세요" autocomplete="email" />
+          <label for="tlo-password">비밀번호</label>
+          <input id="tlo-password" type="password" placeholder="비밀번호를 입력하세요" autocomplete="current-password" />
+          <div class="login-help-row"><a href="M120.html">비밀번호 찾기</a></div>
+          <button type="submit" class="btn login-submit-btn">로그인</button>
         </form>
-        <p class="muted" id="login-bottom-text">TLO 계정이 없으신가요? <a href="M130.html" style="color:var(--teal);font-weight:700;">TLO 회원가입</a></p>
-      </div>
+        <p class="login-join-text">계정이 없으신가요? <a href="M131.html">대학·공공연구기관 회원가입</a></p>
+      </article>
+
+      <article class="panel">
+        <h2>기업 로그인</h2>
+        <div class="login-panel-desc">
+          <p>기업의 IP 관리 및 미래 기술 발굴 업무 지원을 위한 로그인입니다.</p>
+          <p>자사 보유기술과 IP 정보를 AI로 분석하고, 대학·공공연구기관과의 기술이전·공동연구 기회를 확인하세요.</p>
+        </div>
+        <form class="login-form-card" id="company-login-form">
+          <label for="company-email">이메일</label>
+          <input id="company-email" type="email" placeholder="이메일 주소를 입력하세요" autocomplete="email" />
+          <label for="company-password">비밀번호</label>
+          <input id="company-password" type="password" placeholder="비밀번호를 입력하세요" autocomplete="current-password" />
+          <div class="login-help-row"><a href="M120.html">비밀번호 찾기</a></div>
+          <button type="submit" class="btn login-submit-btn">로그인</button>
+        </form>
+        <p class="login-join-text">계정이 없으신가요? <a href="M135.html">기업 회원가입</a></p>
+      </article>
     </div>
   </div>
 </section>
 
+
   </main>
   <div class="footer-space"></div>
   
+
 <script>
-let currentLoginType = 'tlo';
-function setType(type){
-  currentLoginType = type;
-  const tlo = document.getElementById('login-tab-tlo');
-  const company = document.getElementById('login-tab-company');
-  const label = document.getElementById('login-id-label');
-  const desc = document.getElementById('login-desc');
-  const bottom = document.getElementById('login-bottom-text');
-  tlo.classList.toggle('active', type === 'tlo');
-  company.classList.toggle('active', type === 'company');
-  if (type === 'company') {
-    label.textContent = '기업회원 이메일 주소';
-    desc.textContent = '기업회원 전용 로그인';
-    bottom.innerHTML = '기업회원 계정이 없으신가요? <a href="M130.html" style="color:var(--teal);font-weight:700;">기업회원 가입</a>';
-  } else {
-    label.textContent = 'TLO 이메일 주소';
-    desc.textContent = '기관 내부 사용자 전용';
-    bottom.innerHTML = 'TLO 계정이 없으신가요? <a href="M130.html" style="color:var(--teal);font-weight:700;">TLO 회원가입</a>';
-  }
-}
-document.getElementById('login-tab-tlo').addEventListener('click', ()=>setType('tlo'));
-document.getElementById('login-tab-company').addEventListener('click', ()=>setType('company'));
-document.getElementById('login-form').addEventListener('submit', function(e){
+document.getElementById('tlo-login-form').addEventListener('submit', function(e){
   e.preventDefault();
-  if (currentLoginType === 'tlo') {
-    window.location.href = 'https://www.moaai.co.kr/';
-  } else {
-    window.location.href = 'M200.html';
-  }
+  window.location.href = 'https://www.moaai.co.kr/';
+});
+document.getElementById('company-login-form').addEventListener('submit', function(e){
+  e.preventDefault();
+  window.location.href = 'M200.html';
 });
 </script>
+
 
 </body>
 </html>
